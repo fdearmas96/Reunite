@@ -87,5 +87,12 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/regiostro_btn_registrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar"
+            android:textSize="24sp" />
     </LinearLayout>
 </FrameLayout>
