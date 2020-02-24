@@ -44,7 +44,7 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.PermissionChecker.checkSelfPermission;
-
+//Comentario de prueba
 
 /**
  * A simple {@link Fragment} subclass.
