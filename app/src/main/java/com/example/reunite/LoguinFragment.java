@@ -158,7 +158,7 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
                 progreso.hide();
                 dialogo.show();
                 //Toast.makeText(getContext(), jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
-                //guardarLoguin();
+                guardarLoguin();
 
             }
             //Contraseña incorrecta
