@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 //Para probar
 
 /**
@@ -30,6 +32,10 @@ public class RegistroUsuarioFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    EditText registro_usuario, registro_contrasena, registro_nombre, registro_apellido, registro_correo;
+    Button registro_btn_registrar;
+
 
     public RegistroUsuarioFragment() {
         // Required empty public constructor
@@ -66,7 +72,18 @@ public class RegistroUsuarioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registro_usuario, container, false);
+        View vista = inflater.inflate(R.layout.fragment_registro_usuario, container, false);
+
+        registro_usuario = vista.findViewById(R.id.registro_usuario);
+        registro_contrasena = vista.findViewById(R.id.registro_contrasena);
+        registro_apellido = vista.findViewById(R.id.registro_apellido);
+        registro_nombre = vista.findViewById(R.id.registro_nombre);
+        registro_correo = vista.findViewById(R.id.registro_correo);
+        registro_btn_registrar = vista.findViewById(R.id.registro_btn_registrar);
+
+
+
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
