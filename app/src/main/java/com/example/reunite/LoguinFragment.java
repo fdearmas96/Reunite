@@ -113,6 +113,7 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
         loguin_btn_nuevo_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getContext(),"Nuevo usuario", Toast.LENGTH_SHORT).show();
                 nuevoUsuario();
             }
         } );
@@ -121,9 +122,10 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
     }
 
     private void nuevoUsuario() {
-        Fragment miLoguin = null;
-        miLoguin = new LoguinFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miLoguin).commit();
+        Fragment mifragmentNuvoUsuario = null;
+        mifragmentNuvoUsuario = new LoguinFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_main, mifragmentNuvoUsuario).commit();
+        Toast.makeText(getContext(),"despues del commit", Toast.LENGTH_SHORT).show();
     }
 
 
