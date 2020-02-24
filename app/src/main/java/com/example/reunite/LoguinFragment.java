@@ -54,7 +54,8 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
     private OnFragmentInteractionListener mListener;
 
     EditText loguin_user, loguin_pass;
-    Button loguin_ingresar;
+    Button loguin_ingresar, loguin_btn_nuevo_usuario;
+
 
     ProgressDialog progreso;
     RequestQueue request;
@@ -100,6 +101,7 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
         loguin_user = vista.findViewById(R.id.loguin_user);
         loguin_pass = vista.findViewById(R.id.loguin_pass);
         loguin_ingresar = vista.findViewById(R.id.loguin_ingresar);
+        loguin_btn_nuevo_usuario = vista.findViewById(R.id.loguin_btn_nuevo_usuario);
         request = Volley.newRequestQueue(getContext());
         loguin_ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +109,21 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
                 ingresar();
             }
         } );
+
+        loguin_btn_nuevo_usuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nuevoUsuario();
+            }
+        } );
+
         return vista;
+    }
+
+    private void nuevoUsuario() {
+        Fragment miLoguin = null;
+        miLoguin = new LoguinFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miLoguin).commit();
     }
 
 
