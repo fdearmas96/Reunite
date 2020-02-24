@@ -1,5 +1,6 @@
 package com.example.reunite;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
@@ -12,10 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 //Para probar
 
 /**
@@ -26,7 +34,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
  * Use the {@link RegistroUsuarioFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegistroUsuarioFragment extends Fragment {
+public class RegistroUsuarioFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -107,10 +115,68 @@ public class RegistroUsuarioFragment extends Fragment {
         progreso.setMessage("Consultando");
         progreso.show();
         String url = Utilidades.servidor + "/Reunite/RegistroUsuario.php?usuario=" + registro_usuario.getText().toString()
-                + "&pass=" + registro_contrasena.getText().toString()+;
+                + "&pass=" + registro_contrasena.getText().toString()+"&usuario_nombre="+registro_nombre.getText().toString()+
+                "&usuario_apellido=" + registro_apellido.getText().toString() + "&usuario_correo="+registro_correo.getText().toString();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
-        return null;
+    }
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        progreso.hide();
+        Toast.makeText(getContext(), "No se pudo conectar" + error.toString(), Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onResponse(JSONObject response) {
+        progreso.hide();
+        //esto muestra la respuesta entera:
+        //Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
+
+        JSONArray json = response.optJSONArray("loguin");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = json.getJSONObject(0);
+            //todo correcto
+
+            //Toast.makeText(getContext(),"Antes de hacer validaciones: " +jsonObject.optString("success"), Toast.LENGTH_SHORT).show();
+            String success = jsonObject.optString("success");
+            Integer succesInt = 2;
+            String mensaje = jsonObject.optString("message");
+            String entre = "nada";
+
+
+            // Toast.makeText(getContext(), "Antes de validaciones", Toast.LENGTH_SHORT).show();
+
+            if (success.equals("0")) {
+                entre ="0";
+                AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
+                dialogo.setTitle("Registro");
+                dialogo.setMessage(mensaje);
+                progreso.hide();
+                dialogo.show();
+                //Toast.makeText(getContext(), jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                //guardarLoguin();
+
+            }
+            //Contraseña incorrecta
+            if (success.equals("1")) {
+                entre ="1";
+                entre ="0";
+                AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
+                dialogo.setTitle("Atención");
+                dialogo.setMessage(mensaje);
+                progreso.hide();
+                dialogo.show();
+
+
+                //Toast.makeText(getContext(), jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+            }
+
+            //Toast.makeText(getContext(), "despues de validaciones" + entre +"-"+success, Toast.LENGTH_SHORT).show();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -136,6 +202,9 @@ public class RegistroUsuarioFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this
