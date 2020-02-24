@@ -1,5 +1,6 @@
 package com.example.reunite;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 //Para probar
 
 /**
@@ -36,6 +41,9 @@ public class RegistroUsuarioFragment extends Fragment {
     EditText registro_usuario, registro_contrasena, registro_nombre, registro_apellido, registro_correo;
     Button registro_btn_registrar;
 
+    ProgressDialog progreso;
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
 
     public RegistroUsuarioFragment() {
         // Required empty public constructor
@@ -80,10 +88,29 @@ public class RegistroUsuarioFragment extends Fragment {
         registro_nombre = vista.findViewById(R.id.registro_nombre);
         registro_correo = vista.findViewById(R.id.registro_correo);
         registro_btn_registrar = vista.findViewById(R.id.registro_btn_registrar);
+        registro_btn_registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registrarUsuario();
+            }
+        });
 
 
 
         return vista;
+    }
+
+    private void registrarUsuario() {
+
+        //ver si el usuario está registrado en la base de datos
+        progreso = new ProgressDialog(getContext());
+        progreso.setMessage("Consultando");
+        progreso.show();
+        String url = Utilidades.servidor + "/Reunite/RegistroUsuario.php?usuario=" + registro_usuario.getText().toString()
+                + "&pass=" + registro_contrasena.getText().toString()+;
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        request.add(jsonObjectRequest);
+        return null;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
