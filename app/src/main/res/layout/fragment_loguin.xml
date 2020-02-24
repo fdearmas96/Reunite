@@ -37,10 +37,10 @@
             android:text="Ingresar" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/loguin_btn_nuevo_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="nuevo_usuario" />
+            android:text="Nuevo Usuario" />
 
     </LinearLayout>
 
