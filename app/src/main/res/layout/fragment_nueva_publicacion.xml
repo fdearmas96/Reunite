@@ -33,6 +33,7 @@
             android:id="@+id/nueva_P_imagen"
             android:layout_width="422dp"
             android:layout_height="292dp"
+            android:layout_gravity="center_horizontal"
             android:baselineAlignBottom="false"
             android:contentDescription="Imagen"
             app:srcCompat="@drawable/ic_menu_camera"
