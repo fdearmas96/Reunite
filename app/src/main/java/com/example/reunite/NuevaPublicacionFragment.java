@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.media.MediaScannerConnection;
+import android.media.MediaSync;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,10 +30,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
@@ -54,7 +57,7 @@ import static androidx.core.content.PermissionChecker.checkSelfPermission;
  * Use the {@link NuevaPublicacionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NuevaPublicacionFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class NuevaPublicacionFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,6 +82,8 @@ public class NuevaPublicacionFragment extends Fragment implements Response.Liste
     final int COD_SELECCIONA = 10;
     final int COD_CAPTURA = 20;
     String path = "";
+    String stringrequest;
+
 
 
     public NuevaPublicacionFragment() {
@@ -159,18 +164,25 @@ public class NuevaPublicacionFragment extends Fragment implements Response.Liste
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Cargando...");
         progreso.show();
-        String url = Utilidades.servidor + "/Reunite/loguin.php?usuario=
+        String url = Utilidades.servidor + "/Reunite/loguin.php?";/*user=Usuario1" +
+                "&titulo=nada" +
+                "&descripcion=nada" +
+                "&contacto="+nueva_P_Contacto.getText().toString();*/
+        stringrequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });/////////
+
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
 
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-
-    }
 
     private void cargar_imagen() {
 
