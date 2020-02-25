@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PublicacionFragment"
-    android:background="@android:color/holo_blue_bright">
+    android:background="@android:color/holo_green_dark">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +12,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <TextView
             android:id="@+id/publicacionTit"
@@ -23,7 +24,7 @@
 
         <ImageView
             android:id="@+id/ImagenPublicacion"
-            android:layout_width="226dp"
+            android:layout_width="600px"
             android:layout_height="800px"
             android:layout_gravity="center_horizontal"
             android:foregroundGravity="center_horizontal"
