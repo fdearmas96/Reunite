@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Camera;
+import android.graphics.Matrix;
 import android.media.MediaScannerConnection;
 import android.media.MediaSync;
 import android.net.Uri;
@@ -298,14 +299,34 @@ public class NuevaPublicacionFragment extends Fragment {
                                 }
                             });
                     bitmap = BitmapFactory.decodeFile(path);
+
                     nueva_P_imagen.setImageBitmap(bitmap);
                     break;
-
-
             }
-
+            bitmap =redimencionarImagen(bitmap, Utilidades.AnchoImagen,Utilidades.AltoImagen);
 
         }
+    }
+
+    private Bitmap redimencionarImagen(Bitmap bitmap, float anchoImagen, float altoImagen) {
+        int ancho = bitmap.getWidth();
+        int alto = bitmap.getHeight();
+
+        if (ancho>anchoImagen || alto > altoImagen){
+            float escalaAncho = anchoImagen/ancho;
+            float escalaAlto  = altoImagen/alto;
+            
+            Matrix matrix = new Matrix();
+            matrix.setRotate(-90);
+            matrix.postScale(escalaAncho,escalaAlto);
+
+            return  Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true);
+        }else {
+            return bitmap;
+        }
+
+
+
     }
 
     private boolean pedirPermisos() {
