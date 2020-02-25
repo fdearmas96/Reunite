@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,8 +42,13 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -82,7 +89,8 @@ public class NuevaPublicacionFragment extends Fragment {
     final int COD_SELECCIONA = 10;
     final int COD_CAPTURA = 20;
     String path = "";
-    String stringrequest;
+    StringRequest stringrequest;
+    Bitmap bitmap;
 
 
 
@@ -178,10 +186,38 @@ public class NuevaPublicacionFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });/////////
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
+
+                String user =  user1    .getUser(getContext());
+                String titulo  = nueva_P_titulo.getText().toString();
+                String descripcion = nueva_P_descripcion.getText().toString();
+                String contacto = nueva_P_Contacto.getText().toString();
+                String imagen = convertirImgString(bitmap);
+                Map<String,String> parametros = new HashMap<>();
+                parametros.put("user",user);
+                parametros.put("titulo",titulo);
+                parametros.put("descripcion",descripcion);
+                parametros.put("contacto",contacto);
+                parametros.put("imagen",imagen);
+
+                return parametros;
+            }
+        };/////////
 
     }
 
+    private String convertirImgString(Bitmap bitmap) {
+
+        ByteArrayOutputStream array = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
+        byte [] imagenByte = array.toByteArray();
+        String imagenString = Base64.encodeToString(imagenByte,Base64.DEFAULT);
+
+        return imagenString;
+    }
 
 
     private void cargar_imagen() {
@@ -239,6 +275,11 @@ public class NuevaPublicacionFragment extends Fragment {
                 case COD_SELECCIONA:
                     Uri miPath = data.getData();
                     nueva_P_imagen.setImageURI(miPath);
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),miPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case COD_CAPTURA:
                     MediaScannerConnection.scanFile(getContext(), new String[]{path}, null,
@@ -249,7 +290,7 @@ public class NuevaPublicacionFragment extends Fragment {
 
                                 }
                             });
-                    Bitmap bitmap = BitmapFactory.decodeFile(path);
+                    bitmap = BitmapFactory.decodeFile(path);
                     nueva_P_imagen.setImageBitmap(bitmap);
                     break;
 
