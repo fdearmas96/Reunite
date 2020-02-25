@@ -15,6 +15,7 @@ public class Utilidades {
     public static String Pub_img = "Pub_img"; //Dirección de la foto
     public static String Pub_contacto = "Pub_Contacto";//contacto
 
-
+    public static float AnchoImagen = 600;
+    public static float AltoImagen = 800;
 
 }
