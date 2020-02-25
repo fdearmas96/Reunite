@@ -143,9 +143,23 @@ public class NuevaPublicacionFragment extends Fragment implements Response.Liste
                 cargar_imagen();
             }
         });
+        nueva_P_btn_Publicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamarWebService();
+            }
+        });
 
         pedirPermisos();
         return vista;
+    }
+
+    private void llamarWebService() {
+
+        progreso = new ProgressDialog(getContext());
+        progreso.setMessage("Cargando...");
+        progreso.show();
+        String url = Utilidades.servidor + "/Reunite/loguin.php?usuario=
     }
 
     @Override
