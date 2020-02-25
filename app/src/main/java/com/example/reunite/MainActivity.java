@@ -39,6 +39,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.widget.Toast;
@@ -132,16 +133,26 @@ public class MainActivity extends AppCompatActivity
         progreso.hide();
         //esto muestra la respuesta entera:
         //Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        dialogo.setTitle("en el rosponse");
+        dialogo.show();
 
         JSONArray json = response.optJSONArray("loguin");
         JSONObject jsonObject = null;
         try {
             jsonObject = json.getJSONObject(0);
-            //todo correcto
-            if (jsonObject.optString("success") == "0") {
-                Toast.makeText(this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
 
-            }
+
+            //todo correcto
+            if (jsonObject.optString("success").equals("0")) {
+                Toast.makeText(this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                inicio();
+
+            }else{
+                Toast.makeText(this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                miLoguin = new LoguinFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miLoguin).commit();
+            }/*
             //Contraseña incorrecta
             if (jsonObject.optString("success") == "1") {
                 Toast.makeText(this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
@@ -153,12 +164,21 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                 miLoguin = new LoguinFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miLoguin).commit();
-            }
+            }*/
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void inicio() {
+        //voy a la pantalla de inicio
+        Fragment miFragmentinicio = null;
+        miFragmentinicio = new FragmentInicio();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main,miFragmentinicio).commit();
+
+
     }
 
     @Override
@@ -250,7 +270,7 @@ public class MainActivity extends AppCompatActivity
 
     private boolean pedirPermisos() {
         //Estilo viejo se toman los permisos por el manifest
-        Toast.makeText(this, "Antes de los permisos", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Antes de los permisos", Toast.LENGTH_SHORT).show();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
@@ -261,7 +281,7 @@ public class MainActivity extends AppCompatActivity
                 (ContextCompat.checkSelfPermission(this, INTERNET) == PackageManager.PERMISSION_GRANTED)
         )
         {
-            Toast.makeText(this, "ya tiene permisos", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "ya tiene permisos", Toast.LENGTH_SHORT).show();
             return true;
         }
 
