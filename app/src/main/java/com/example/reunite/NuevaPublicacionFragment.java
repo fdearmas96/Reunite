@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -179,12 +180,18 @@ public class NuevaPublicacionFragment extends Fragment {
         stringrequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                progreso.hide();
+                if (response.equalsIgnoreCase("registra")){
+                    Toast.makeText(getContext(), "Se registró", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "No se pudo registrar", Toast.LENGTH_SHORT).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                progreso.hide();
+                Toast.makeText(getContext(), "Algo falló", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -205,7 +212,7 @@ public class NuevaPublicacionFragment extends Fragment {
 
                 return parametros;
             }
-        };/////////
+        };request.add(stringrequest);
 
     }
 
