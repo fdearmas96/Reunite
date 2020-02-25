@@ -173,7 +173,7 @@ public class NuevaPublicacionFragment extends Fragment {
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Cargando...");
         progreso.show();
-        String url = Utilidades.servidor + "/Reunite/loguin.php?";/*user=Usuario1" +
+        String url = Utilidades.servidor + "/Reunite/NuevaPublicacion.php?";/*user=Usuario1" +
                 "&titulo=nada" +
                 "&descripcion=nada" +
                 "&contacto="+nueva_P_Contacto.getText().toString();*/
@@ -181,10 +181,10 @@ public class NuevaPublicacionFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 progreso.hide();
-                if (response.equalsIgnoreCase("registra")){
+                if (response.trim().equalsIgnoreCase("registra")){
                     Toast.makeText(getContext(), "Se registró", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getContext(), "No se pudo registrar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No se pudo registrar" + response, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
