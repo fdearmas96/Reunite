@@ -35,7 +35,7 @@ public class FragmentInicio extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    ArrayList<String> listPublicaciones;
+    ArrayList<PublicacionAdaptador> listPublicaciones;
     RecyclerView recycler;
 
     public FragmentInicio() {
@@ -77,14 +77,21 @@ public class FragmentInicio extends Fragment {
 
         recycler = vista.findViewById(R.id.inicio_recycler);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        listPublicaciones = new ArrayList<>();
-        for (int i=0; i< 50;i++){
+        listPublicaciones = new ArrayList<PublicacionAdaptador>();
+        /*for (int i=0; i< 50;i++){
             listPublicaciones.add("dato " + i);
-        }
+        }*/
+        llenarPublicaciones();
+        
         AdapterPublicacion adapterPublicacion = new AdapterPublicacion(listPublicaciones);
         recycler.setAdapter(adapterPublicacion);
 
         return vista;
+    }
+
+    private void llenarPublicaciones() {
+        listPublicaciones.add(new PublicacionAdaptador("titulo", "descropcion",
+                "contacto", "1",1));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
