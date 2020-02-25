@@ -1,5 +1,6 @@
 package com.example.reunite;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -275,6 +277,8 @@ public class NuevaPublicacionFragment extends Fragment {
         alterOpciones.show();
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -285,6 +289,8 @@ public class NuevaPublicacionFragment extends Fragment {
                     nueva_P_imagen.setImageURI(miPath);
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),miPath);
+                        //bitmap = Bitmap.createScaledBitmap(bitmap,600,800,true);////////////////////////////////
+                        //nueva_P_imagen.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -299,10 +305,24 @@ public class NuevaPublicacionFragment extends Fragment {
                                 }
                             });
                     bitmap = BitmapFactory.decodeFile(path);
+                    //por algun motivo viene la gira -90 grados así que la giro
+                    Matrix matrix = new Matrix();
+                    matrix.preRotate(90);
+                    bitmap =Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                    bitmap.getHeight(), matrix, true);
+
+
+                    bitmap = Bitmap.createScaledBitmap(bitmap,600,800,true);///////////////////////////
 
                     nueva_P_imagen.setImageBitmap(bitmap);
+                    //la vuelvo a girar ya que cuando bajo el tamaño también la giro
+                    //matrix.preRotate(-90);
+                    //bitmap =Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                    //        bitmap.getHeight(), matrix, true);
                     break;
             }
+
+
             bitmap =redimencionarImagen(bitmap, Utilidades.AnchoImagen,Utilidades.AltoImagen);
 
         }
@@ -310,17 +330,23 @@ public class NuevaPublicacionFragment extends Fragment {
 
     private Bitmap redimencionarImagen(Bitmap bitmap, float anchoImagen, float altoImagen) {
         int ancho = bitmap.getWidth();
-        int alto = bitmap.getHeight();
+        int alto  = bitmap.getHeight();
 
         if (ancho>anchoImagen || alto > altoImagen){
             float escalaAncho = anchoImagen/ancho;
             float escalaAlto  = altoImagen/alto;
-            
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90);
-            matrix.postScale(escalaAncho,escalaAlto);
 
-            return  Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true);
+            Matrix matrix = new Matrix();
+            matrix.postScale(1,1);
+            matrix.setRotate(90);
+            bitmap = Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true); //La giro
+            //matrix.setRotate(-90);
+
+            //matrix.postScale(escalaAncho,escalaAlto);
+            //bitmap = Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true);
+
+            bitmap = Bitmap.createScaledBitmap(bitmap,600,800,true); //le doy el tamaño 800x600
+            return  bitmap;
         }else {
             return bitmap;
         }
