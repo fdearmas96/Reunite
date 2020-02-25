@@ -12,7 +12,7 @@ public class Publicacion {
     private int pub_id;
     private String Pub_Titulo; //Titulo
     private String Pub_Desc; //Descripción
-    private Date Pub_fecha;  //fecha de publicación
+
     //private String Pub_img; //Dirección de la foto
     private String Pub_contacto;//contacto
     private String dato;
@@ -42,13 +42,6 @@ public class Publicacion {
         Pub_Desc = pub_Desc;
     }
 
-    public Date getPub_fecha() {
-        return Pub_fecha;
-    }
-
-    public void setPub_fecha(Date pub_fecha) {
-        Pub_fecha = pub_fecha;
-    }
 
     public String getPub_contacto() {
         return Pub_contacto;
