@@ -133,9 +133,6 @@ public class MainActivity extends AppCompatActivity
         progreso.hide();
         //esto muestra la respuesta entera:
         //Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
-        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-        dialogo.setTitle("en el rosponse");
-        dialogo.show();
 
         JSONArray json = response.optJSONArray("loguin");
         JSONObject jsonObject = null;
