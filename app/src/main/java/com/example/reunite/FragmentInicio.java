@@ -5,10 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 
 /**
@@ -30,6 +34,9 @@ public class FragmentInicio extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ArrayList<String> listPublicaciones;
+    RecyclerView recycler;
 
     public FragmentInicio() {
         // Required empty public constructor
@@ -66,7 +73,18 @@ public class FragmentInicio extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_inicio, container, false);
+        View vista = inflater.inflate(R.layout.fragment_fragment_inicio, container, false);
+
+        recycler = vista.findViewById(R.id.inicio_recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        listPublicaciones = new ArrayList<>();
+        for (int i=0; i< 50;i++){
+            listPublicaciones.add("dato " + i);
+        }
+        AdapterPublicacion adapterPublicacion = new AdapterPublicacion(listPublicaciones);
+        recycler.setAdapter(adapterPublicacion);
+
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
