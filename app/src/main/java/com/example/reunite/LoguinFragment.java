@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -113,7 +114,7 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
         loguin_btn_nuevo_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"Nuevo usuario", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(),"Nuevo usuario", Toast.LENGTH_SHORT).show();
                 nuevoUsuario();
             }
         } );
@@ -123,9 +124,13 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
 
     private void nuevoUsuario() {
         Fragment mifragmentNuvoUsuario = null;
-        mifragmentNuvoUsuario = new LoguinFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_main, mifragmentNuvoUsuario).commit();
-        Toast.makeText(getContext(),"despues del commit", Toast.LENGTH_SHORT).show();
+        mifragmentNuvoUsuario = new RegistroUsuarioFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, mifragmentNuvoUsuario);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        //Toast.makeText(getContext(),"despues del commit1", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -176,7 +181,10 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
                 progreso.hide();
                 dialogo.show();
                 //Toast.makeText(getContext(), jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
-                guardarLoguin();
+                //guardarLoguin();
+                //GuardarUsuario guardarUsuarioLogueado = new GuardarUsuario(loguin_user.getText().toString(),loguin_pass.getText().toString());
+                GuardarUsuario guardarUsuario = new GuardarUsuario();
+                guardarUsuario.GuardarUsuario(loguin_user.getText().toString(),loguin_pass.getText().toString(),getContext());
 
             }
             //Contraseña incorrecta
