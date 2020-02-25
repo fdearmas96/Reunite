@@ -186,6 +186,9 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
                 GuardarUsuario guardarUsuario = new GuardarUsuario();
                 guardarUsuario.GuardarUsuario(loguin_user.getText().toString(),loguin_pass.getText().toString(),getContext());
 
+                inicio();
+
+
             }
             //Contraseña incorrecta
             if (success.equals("1")) {
@@ -220,6 +223,16 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
             e.printStackTrace();
         }
 
+    }
+
+    private void inicio() {
+        Fragment mifragmentNuvoUsuario = null;
+        mifragmentNuvoUsuario = new FragmentInicio();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, mifragmentNuvoUsuario);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void guardarLoguin() {
