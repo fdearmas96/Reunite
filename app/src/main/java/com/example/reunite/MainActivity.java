@@ -93,13 +93,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void cargarloguin() {
-
-        SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
-        String user = preferences.getString("user","");
-        String pass = preferences.getString("pass","");
+        //SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        //String user = preferences.getString("user","");
+        //String pass = preferences.getString("pass","");
+        String user;
+        String pass;
+        ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
+        user = user1.getUser(this);
+        ConsultaUsuarioLogueado pass1 = new ConsultaUsuarioLogueado();
+        pass = pass1.getPass(this);
 
         //veo si hay valores y si hay veo si está registrado el usuario
-        if (user == ""){
+        if (user.equals("") ){
             miLoguin = new LoguinFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miLoguin).commit();
         }else{
@@ -211,8 +216,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_loguin) {
             mifragment = new LoguinFragment();
             fragmentSeleccionado = true;
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_nuevo_usuario) {
+            mifragment = new RegistroUsuarioFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_send) {
 
         }
