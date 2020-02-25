@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class AdapterPublicacion extends RecyclerView.Adapter<AdapterPublicacion.ViewHolderPublicacion> {
 
-    ArrayList<String> listPublicaciones;
+    ArrayList<PublicacionAdaptador> listPublicaciones;
 
-    public AdapterPublicacion(ArrayList<String> listPublicaciones) {
+    public AdapterPublicacion(ArrayList<PublicacionAdaptador> listPublicaciones) {
         this.listPublicaciones = listPublicaciones;
     }
 
@@ -28,6 +28,15 @@ public class AdapterPublicacion extends RecyclerView.Adapter<AdapterPublicacion.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPublicacion holder, int position) {
+        holder.publicacionTit.setText(listPublicaciones.get(position).getPub_Titulo());
+        holder.PublicacionContacto.setText(listPublicaciones.get(position).getPub_Contacto());
+        holder.PublicacionDescri.setText(listPublicaciones.get(position).getPub_Desc());
+        //holder.ImagenPublicacion.setimage
+
+        //holder.publicacionTit.setText(listPublicaciones.get(position).getPub_Titulo());
+
+
+
         holder.asignarPublicaciones(listPublicaciones.get(position));
     }
 
@@ -50,7 +59,7 @@ public class AdapterPublicacion extends RecyclerView.Adapter<AdapterPublicacion.
             ImagenPublicacion = itemView.findViewById(R.id.ImagenPublicacion);
         }
 
-        public void asignarPublicaciones(String s) {
+        public void asignarPublicaciones(PublicacionAdaptador s) {
 
         }
     }
