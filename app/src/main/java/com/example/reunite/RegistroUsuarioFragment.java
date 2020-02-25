@@ -20,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,7 +97,9 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
         registro_nombre = vista.findViewById(R.id.registro_nombre);
         registro_correo = vista.findViewById(R.id.registro_correo);
         registro_btn_registrar = vista.findViewById(R.id.registro_btn_registrar);
+        request = Volley.newRequestQueue(getContext());
         registro_btn_registrar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 registrarUsuario();
@@ -129,9 +132,9 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
     public void onResponse(JSONObject response) {
         progreso.hide();
         //esto muestra la respuesta entera:
-        //Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
 
-        JSONArray json = response.optJSONArray("loguin");
+        JSONArray json = response.optJSONArray("registro");
         JSONObject jsonObject = null;
         try {
             jsonObject = json.getJSONObject(0);
@@ -139,15 +142,14 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
 
             //Toast.makeText(getContext(),"Antes de hacer validaciones: " +jsonObject.optString("success"), Toast.LENGTH_SHORT).show();
             String success = jsonObject.optString("success");
-            Integer succesInt = 2;
             String mensaje = jsonObject.optString("message");
-            String entre = "nada";
+
 
 
             // Toast.makeText(getContext(), "Antes de validaciones", Toast.LENGTH_SHORT).show();
 
             if (success.equals("0")) {
-                entre ="0";
+
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
                 dialogo.setTitle("Registro");
                 dialogo.setMessage(mensaje);
@@ -155,12 +157,17 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
                 dialogo.show();
                 //Toast.makeText(getContext(), jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                 //guardarLoguin();
+                Context context = getContext();
+                String userGuar = registro_usuario.getText().toString();
+                String passGuard = registro_contrasena.getText().toString();
+               GuardarUsuario guardarUsuario = new GuardarUsuario();
+               guardarUsuario.GuardarUsuario(userGuar,passGuard,context);
+
+
 
             }
             //Contraseña incorrecta
             if (success.equals("1")) {
-                entre ="1";
-                entre ="0";
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
                 dialogo.setTitle("Atención");
                 dialogo.setMessage(mensaje);
@@ -186,16 +193,7 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+
 
     @Override
     public void onDetach() {
