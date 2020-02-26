@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Utilidades {
     //Ip de api
-    public static String servidor = "http://192.168.1.103:8080/";
+    public static String servidor = "http://192.168.1.108:8080/";
 
 
     public static String Tabla_Pub = "publicacion";
