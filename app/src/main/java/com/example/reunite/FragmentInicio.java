@@ -35,7 +35,7 @@ public class FragmentInicio extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    ArrayList<PublicacionAdaptador> listPublicaciones;
+    ArrayList<PublicacionInicio> listPublicaciones;
     RecyclerView recycler;
 
     public FragmentInicio() {
@@ -76,8 +76,8 @@ public class FragmentInicio extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_fragment_inicio, container, false);
 
         recycler = vista.findViewById(R.id.inicio_recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        listPublicaciones = new ArrayList<PublicacionAdaptador>();
+        recycler.setLayoutManager(new LinearLayoutManager(getContext())); //genero un layout vertical
+        listPublicaciones = new ArrayList<PublicacionInicio>();
         /*for (int i=0; i< 50;i++){
             listPublicaciones.add("dato " + i);
         }*/
@@ -90,7 +90,8 @@ public class FragmentInicio extends Fragment {
     }
 
     private void llenarPublicaciones() {
-        listPublicaciones.add(new PublicacionAdaptador("titulo", "descropcion",
+        //Debería llamar al web service y conseguir estos datos
+        listPublicaciones.add(new PublicacionInicio("titulo", "descropcion",
                 "contacto", "1",1));
     }
 
