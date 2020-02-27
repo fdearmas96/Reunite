@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(fragmentSeleccionado){
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_main,mifragment).commit();
+            llamar_fragment (mifragment);
         }
 
 
@@ -250,6 +250,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void llamar_fragment(Fragment mifragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main,mifragment).commit();
+    }
 
 
     @Override
