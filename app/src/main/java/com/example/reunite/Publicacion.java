@@ -13,10 +13,19 @@ public class Publicacion {
     private String Pub_Titulo; //Titulo
     private String Pub_Desc; //Descripción
 
+    public String getRuta_imagen() {
+        return ruta_imagen;
+    }
+
+    public void setRuta_imagen(String ruta_imagen) {
+        this.ruta_imagen = ruta_imagen;
+    }
+
     //private String Pub_img; //Dirección de la foto
     private String Pub_contacto;//contacto
     private String dato;
     private Bitmap Pub_img;
+    private String ruta_imagen;
 
     public int getPub_id() {
         return pub_id;
@@ -71,6 +80,8 @@ public class Publicacion {
     }
 
     public void setPub_img(Bitmap pub_img) {
+
+
         Pub_img = pub_img;
     }
 }
