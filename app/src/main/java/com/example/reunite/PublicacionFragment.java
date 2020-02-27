@@ -113,7 +113,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         progreso.setMessage("Consultando");
         progreso.show();
 
-        String url = Utilidades.servidor + "Reunite/ConsultarPublicacion.php?Pub_ID=2";
+        String url = Utilidades.servidor + "Reunite/ConsultarPublicacion.php?Pub_ID=1";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }
