@@ -9,6 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -30,7 +35,14 @@ public class ChatFerFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    EditText chat_mensaje;
+    ListView lvMensajes;
+    Button chat_btn_enviar, chat_btn_actualizar;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> listaMensajes;
+    String url = Utilidades.servidor;
 
+    
     public ChatFerFragment() {
         // Required empty public constructor
     }
