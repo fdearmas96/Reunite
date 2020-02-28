@@ -2,6 +2,7 @@ package com.example.reunite;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -113,7 +115,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         progreso.setMessage("Consultando");
         progreso.show();
 
-        String url = Utilidades.servidor + "Reunite/ConsultarPublicacion.php?Pub_ID=2";
+        String url = Utilidades.servidor + "Reunite/ConsultarPublicacion.php?Pub_ID=6";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }
@@ -139,15 +141,35 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
             miPublicacion.setPub_Titulo(jsonObject.optString("Pub_Titulo"));
             miPublicacion.setPub_Desc(jsonObject.optString("Pub_Desc"));
             miPublicacion.setPub_contacto(jsonObject.optString("Pub_Contacto"));
-            miPublicacion.setDato(jsonObject.optString("Pub_img"));
+            miPublicacion.setRuta_imagen(jsonObject.optString("Pub_img"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         publicacionTit.setText( miPublicacion.getPub_Titulo());
         publicacionDescri.setText(miPublicacion.getPub_Desc());
         publicacionContacto.setText(miPublicacion.getPub_contacto());
-        ImagenPublicacion.setImageBitmap(miPublicacion.getPub_img());
+        String url_imagen = Utilidades.servidor + "Reunite/" + miPublicacion.getRuta_imagen();
+        Toast.makeText(getContext(), "No se pudo consultar" + url_imagen , Toast.LENGTH_SHORT).show();
+        cargarWebServiceImagen(url_imagen);
+        //ImagenPublicacion.setImageBitmap(miPublicacion.getPub_img());
 
+
+    }
+
+    private void cargarWebServiceImagen(String url_imagen) {
+        url_imagen = url_imagen.replace(" ", "%20");//para quitar espacios
+        ImageRequest imageRequest = new ImageRequest(url_imagen, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                ImagenPublicacion.setImageBitmap(response);
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error al cargar la imagen " , Toast.LENGTH_SHORT).show();
+            }
+        });
+        request.add(imageRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
