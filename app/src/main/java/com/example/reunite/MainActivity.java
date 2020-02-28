@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                //Fragment fragment = new NuevaPublicacionFragment();
-                //llamar_fragment(fragment);
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+                Fragment fragment = new ChatFerFragment();
+                llamar_fragment(fragment);
 
             }
         });
