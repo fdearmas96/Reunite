@@ -42,7 +42,7 @@ public class ChatFerFragment extends Fragment {
     ArrayList<String> listaMensajes;
     String url = Utilidades.servidor;
 
-    
+
     public ChatFerFragment() {
         // Required empty public constructor
     }
