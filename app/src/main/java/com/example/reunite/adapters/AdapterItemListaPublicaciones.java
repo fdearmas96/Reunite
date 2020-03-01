@@ -76,7 +76,7 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
     }
     private void cargarWebServiceImagen(String url_imagen, final ViewHolder holder) {
         url_imagen = url_imagen.replace(" ", "%20");//para quitar espacios
-        Toast.makeText(context,  " Busco imagen " + url_imagen , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,  " Busco imagen " + url_imagen , Toast.LENGTH_SHORT).show();
         ImageRequest imageRequest = new ImageRequest(url_imagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
@@ -85,7 +85,7 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
                 response = Bitmap.createScaledBitmap(response,600,800,true);
                 holder.pubImagen.setImageBitmap(response);
                 //ListaPublicacionesFragment.this.publicacion.setPub_img(response);
-                Toast.makeText(context,  "agrego imagen "  , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,  "agrego imagen "  , Toast.LENGTH_SHORT).show();
 
             }
         },
@@ -97,7 +97,7 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context,  "Error al cargar la imagen "  , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,  "Error al cargar la imagen "  , Toast.LENGTH_SHORT).show();
             }
         });
         request.add(imageRequest);

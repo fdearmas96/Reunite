@@ -10,14 +10,17 @@
         android:id="@+id/pubTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/pubTitulo" />
+        android:layout_gravity="center"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:text="@string/pubTitulo"
+        android:textSize="30sp" />
 
     <ImageView
         android:id="@+id/pubImagen"
-        android:layout_width="600px"
-        android:layout_height="800px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:contentDescription="@string/pubImagen"
         android:maxWidth="600dp"
         android:maxHeight="800dp"

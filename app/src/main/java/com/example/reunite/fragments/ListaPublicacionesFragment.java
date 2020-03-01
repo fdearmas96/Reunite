@@ -103,7 +103,7 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
 
         JSONArray json = response.optJSONArray("publicacion");
         JSONObject jsonObject = null;
-        Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
 
         try {
 

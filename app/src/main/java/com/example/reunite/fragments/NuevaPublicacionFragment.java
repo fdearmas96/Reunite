@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Environment;
 import android.os.StrictMode;
@@ -157,10 +158,13 @@ public class NuevaPublicacionFragment extends Fragment {
                 cargar_imagen();
             }
         });
-        nueva_P_btn_Publicar.setOnClickListener(new View.OnClickListener() {
+        nueva_P_btn_Publicar.setOnClickListener(
+                new View.OnClickListener()
+                {
             @Override
             public void onClick(View view) {
                 llamarWebService();
+
             }
         });
 
@@ -184,6 +188,10 @@ public class NuevaPublicacionFragment extends Fragment {
                 progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")){
                     Toast.makeText(getContext(), "Se registró", Toast.LENGTH_SHORT).show();
+
+                    //Llamo al fragment de inicio el que muestra las publicaciones:
+                    inicio();
+
                 }else {
                     Toast.makeText(getContext(), "No se pudo registrar" + response, Toast.LENGTH_SHORT).show();
                 }
@@ -214,6 +222,18 @@ public class NuevaPublicacionFragment extends Fragment {
                 return parametros;
             }
         };request.add(stringrequest);
+
+    }
+
+    private void inicio() {
+            //voy a la pantalla de inicio
+            Fragment mifragmentNuvoUsuario = null;
+            mifragmentNuvoUsuario = new ListaPublicacionesFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_main, mifragmentNuvoUsuario);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.addToBackStack(null);
+            transaction.commit();
 
     }
 
