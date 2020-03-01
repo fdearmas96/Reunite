@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
     private void inicio() {
         //voy a la pantalla de inicio
         Fragment miFragmentinicio = null;
-        miFragmentinicio = new InicioFragment();
+        miFragmentinicio = new ListaPublicacionesFragment();//InicioFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main,miFragmentinicio).commit();
 
 
