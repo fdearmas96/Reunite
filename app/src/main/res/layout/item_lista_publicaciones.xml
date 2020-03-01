@@ -16,8 +16,8 @@
 
     <ImageView
         android:id="@+id/pubImagen"
-        android:layout_width="300dp"
-        android:layout_height="500dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/pubImagen"
         android:maxWidth="600dp"
         android:maxHeight="800dp"
