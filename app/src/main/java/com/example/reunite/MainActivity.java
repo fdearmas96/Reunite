@@ -2,12 +2,8 @@ package com.example.reunite;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +14,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.reunite.classes.ConsultaUsuarioLogueado;
+import com.example.reunite.classes.LoguinFragment;
+import com.example.reunite.classes.Utilidades;
+import com.example.reunite.fragments.InicioFragment;
+import com.example.reunite.fragments.ListaPublicacionesFragment;
+import com.example.reunite.fragments.NuevaPublicacionFragment;
+import com.example.reunite.fragments.PublicacionFragment;
+import com.example.reunite.fragments.RegistroUsuarioFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -39,7 +43,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.widget.Toast;
@@ -48,16 +51,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static androidx.core.content.PermissionChecker.checkSelfPermission;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ImplementsFragments, Response.ErrorListener, Response.Listener<JSONObject> {
-
 
     ProgressDialog progreso;
     Fragment miLoguin = null;
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity
     private void inicio() {
         //voy a la pantalla de inicio
         Fragment miFragmentinicio = null;
-        miFragmentinicio = new FragmentInicio();
+        miFragmentinicio = new InicioFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main,miFragmentinicio).commit();
 
 
@@ -220,8 +219,13 @@ public class MainActivity extends AppCompatActivity
         boolean fragmentSeleccionado = false;
         if (id == R.id.nav_home) {
             // Handle the camera action
-            mifragment = new FragmentInicio();
+            mifragment = new InicioFragment();
             fragmentSeleccionado  = true;
+
+        } else if (id == R.id.nav_publicaciones) {
+            mifragment = new ListaPublicacionesFragment();
+            fragmentSeleccionado  = true;
+
         } else if (id == R.id.nav_publicacion) {
             mifragment = new PublicacionFragment();
             fragmentSeleccionado  = true;
@@ -233,9 +237,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_loguin) {
             mifragment = new LoguinFragment();
             fragmentSeleccionado = true;
+
         } else if (id == R.id.nav_nuevo_usuario) {
             mifragment = new RegistroUsuarioFragment();
             fragmentSeleccionado = true;
+
         } else if (id == R.id.nav_send) {
 
         }
