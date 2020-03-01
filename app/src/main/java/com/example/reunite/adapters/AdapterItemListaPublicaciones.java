@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,28 +12,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.R;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterItemListaPublicaciones.ViewHolder> {
     private LayoutInflater inflador;
-    protected Vector<Publicacion> vectorPublicaciones; // Datos a visualizar
+    protected ArrayList<Publicacion> vectorPublicaciones; // Datos a visualizar
 
 //    public AdapterItemListaPublicaciones(@NonNull ViewGroup parent, Vector<Publicacion> publicaciones) {
 //        inflador = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        this.vectorPublicaciones = publicaciones;
 //    }
 
-    public AdapterItemListaPublicaciones(Context contexto, Vector<Publicacion> publicaciones) {
+    public AdapterItemListaPublicaciones(Context contexto, ArrayList<Publicacion> publicaciones) {
         inflador = (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.vectorPublicaciones = publicaciones;
     }
 
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView pubTitulo;
+        public ImageView pubImagen;
 
         public ViewHolder(View itemView) {
             super(itemView);
             pubTitulo = (TextView) itemView.findViewById(R.id.pubTitulo);
+            pubImagen = (ImageView) itemView.findViewById(R.id.pubImagen);
+
         }
     }
 
@@ -44,8 +51,9 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
 
     @Override // Personalizo el ViewHolder
     public void onBindViewHolder(ViewHolder holder, int posicion) {
-        Publicacion publicacion = vectorPublicaciones.elementAt(posicion);
+        Publicacion publicacion = vectorPublicaciones.get(posicion);
         holder.pubTitulo.setText(publicacion.getPub_Titulo());
+        holder.pubImagen.setImageBitmap(publicacion.getPub_img());
     }
 
     @Override // Indico el número de elementos de la lista
