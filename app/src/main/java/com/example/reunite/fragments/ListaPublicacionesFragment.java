@@ -142,7 +142,7 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
             @Override
             public void onResponse(Bitmap response) {
                 publicacion.setPub_img(response);
-                Toast.makeText(getContext(), "agrego imagen " , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "agrego imagen " + publicacion.getPub_Titulo() , Toast.LENGTH_SHORT).show();
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
             @Override
