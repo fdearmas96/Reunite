@@ -1,11 +1,13 @@
 package com.example.reunite.fragments;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.classes.Publicacion;
@@ -37,6 +40,7 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
     JsonObjectRequest jsonObjectRequest;
     ProgressDialog progreso;
     ArrayList<Publicacion> publicaciones ;//= new Vector();
+    Publicacion publicacion = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +99,7 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
     //El web service responde:
     @Override
     public void onResponse(JSONObject response) {
-        Publicacion publicacion = null;
+
 
         JSONArray json = response.optJSONArray("publicacion");
         JSONObject jsonObject = null;
@@ -110,7 +114,10 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
                 publicacion.setPub_Titulo(jsonObject.optString("Pub_Titulo"));
                 //publicacion.setPub_Desc(jsonObject.optString("Pub_Desc"));
                 //publicacion.setPub_contacto(jsonObject.optString("Pub_Contacto"));
-                //publicacion.setRuta_imagen(jsonObject.optString("Pub_img"));
+                publicacion.setRuta_imagen(jsonObject.optString("Pub_img"));
+                String url_imagen = Utilidades.servidor + "Reunite/" + publicacion.getRuta_imagen();
+                cargarWebServiceImagen(url_imagen);
+
                 publicaciones.add(publicacion);
                 //publicaciones.addElement(publicacion);
             }
@@ -125,6 +132,25 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void cargarWebServiceImagen(String url_imagen) {
+        url_imagen = url_imagen.replace(" ", "%20");//para quitar espacios
+        Toast.makeText(getContext(), "Busco imagen " + url_imagen , Toast.LENGTH_SHORT).show();
+        ImageRequest imageRequest = new ImageRequest(url_imagen, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                publicacion.setPub_img(response);
+                Toast.makeText(getContext(), "agrego imagen " , Toast.LENGTH_SHORT).show();
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error al cargar la imagen "  , Toast.LENGTH_SHORT).show();
+            }
+        });
+        request.add(imageRequest);
 
     }
 }
