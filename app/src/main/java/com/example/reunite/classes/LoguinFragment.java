@@ -26,6 +26,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.R;
 import com.example.reunite.fragments.InicioFragment;
+import com.example.reunite.fragments.ListaPublicacionesFragment;
 import com.example.reunite.fragments.RegistroUsuarioFragment;
 
 import org.json.JSONArray;
@@ -227,7 +228,7 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
 
     private void inicio() {
         Fragment mifragmentNuvoUsuario = null;
-        mifragmentNuvoUsuario = new InicioFragment();
+        mifragmentNuvoUsuario = new ListaPublicacionesFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, mifragmentNuvoUsuario);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
