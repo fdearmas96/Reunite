@@ -83,6 +83,8 @@ public class Publicacion {
     }
 
     public Bitmap getPub_img() {
+
+
         return Pub_img;
     }
 

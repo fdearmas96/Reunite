@@ -115,8 +115,8 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
                 //publicacion.setPub_Desc(jsonObject.optString("Pub_Desc"));
                 //publicacion.setPub_contacto(jsonObject.optString("Pub_Contacto"));
                 publicacion.setRuta_imagen(jsonObject.optString("Pub_img"));
-                String url_imagen = Utilidades.servidor + "Reunite/" + publicacion.getRuta_imagen();
-                cargarWebServiceImagen(url_imagen, i);
+ //               //String url_imagen = Utilidades.servidor + "Reunite/" + publicacion.getRuta_imagen();
+//                //cargarWebServiceImagen(url_imagen);
 
                 publicaciones.add(publicacion);
                 //publicaciones.addElement(publicacion);
@@ -135,22 +135,23 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
 
     }
 
-    private void cargarWebServiceImagen(String url_imagen, final int i) {
+ /*   private void cargarWebServiceImagen(String url_imagen) {
         url_imagen = url_imagen.replace(" ", "%20");//para quitar espacios
-        Toast.makeText(getContext(), i + " Busco imagen " + url_imagen , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),  " Busco imagen " + url_imagen , Toast.LENGTH_SHORT).show();
         ImageRequest imageRequest = new ImageRequest(url_imagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
+                response = Bitmap.createScaledBitmap(response,600,800,true);
                 ListaPublicacionesFragment.this.publicacion.setPub_img(response);
-                Toast.makeText(getContext(), i + "agrego imagen " + publicacion.getPub_Titulo() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),  "agrego imagen " + publicacion.getPub_Titulo() , Toast.LENGTH_SHORT).show();
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), i +"Error al cargar la imagen "  , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),  "Error al cargar la imagen "  , Toast.LENGTH_SHORT).show();
             }
         });
         request.add(imageRequest);
 
-    }
+    }*/
 }
