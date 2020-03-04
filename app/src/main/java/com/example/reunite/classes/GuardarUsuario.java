@@ -2,6 +2,7 @@ package com.example.reunite.classes;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class GuardarUsuario {
     private String user;
@@ -18,6 +19,7 @@ public class GuardarUsuario {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("user", usuario);
         editor.putString("pass", contrasena);
+        Log.i("****123se guarda", user +' ' + pass);
         editor.commit();
     }
 
