@@ -139,8 +139,11 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Consultando");
         progreso.show();
-        String url = Utilidades.servidor + "/Reunite/loguin.php?usuario=" + loguin_user.getText().toString()
+        //String url = Utilidades.servidor + "/Reunite/loguin.php?usuario=" + loguin_user.getText().toString()
+        //        + "&pass=" + loguin_pass.getText().toString();
+        String url = Utilidades.WsLoguin + "usuario=" + loguin_user.getText().toString()
                 + "&pass=" + loguin_pass.getText().toString();
+        Log.i("*********URL********", url);
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
@@ -150,7 +153,7 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
     @Override
     public void onErrorResponse(VolleyError error) {
         progreso.hide();
-        Toast.makeText(getContext(), "No se pudo conectar" + error.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "No se pudo conectar"  +    error.toString(), Toast.LENGTH_SHORT).show();
         Log.i("Error", error.toString());
     }
     @Override
