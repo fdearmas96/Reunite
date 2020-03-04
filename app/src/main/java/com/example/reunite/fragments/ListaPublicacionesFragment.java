@@ -83,7 +83,8 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         progreso.setMessage("Consultando");
         progreso.show();
         JsonObjectRequest jsonObjectRequest;
-        String url = Utilidades.servidor + "Reunite/ObtenerPublicaciones.php";//.php?Pub_ID=6";
+        //String url = Utilidades.servidor + "Reunite/ObtenerPublicaciones.php";//.php?Pub_ID=6";
+        String url = Utilidades.WsObtenerPublicaciones;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }
