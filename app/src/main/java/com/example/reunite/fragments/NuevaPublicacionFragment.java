@@ -177,7 +177,8 @@ public class NuevaPublicacionFragment extends Fragment {
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Cargando...");
         progreso.show();
-        String url = Utilidades.servidor + "/Reunite/NuevaPublicacion.php?";
+        //String url = Utilidades.servidor + "/Reunite/NuevaPublicacion.php?";
+        String url = Utilidades.WsNuevaPublicacion;
                 /*"user=Usuario1" +
                 "&titulo=nada" +
                 "&descripcion=nada" +
@@ -200,7 +201,7 @@ public class NuevaPublicacionFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progreso.hide();
-                Toast.makeText(getContext(), "Algo falló", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Algo falló" + error, Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
