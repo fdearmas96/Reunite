@@ -68,7 +68,7 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
         Publicacion publicacion = vectorPublicaciones.get(posicion);
         holder.pubTitulo.setText(publicacion.getPub_Titulo());
         if (publicacion.getRuta_imagen()!=null) {//Si hay una ruta
-            String url_imagen = Utilidades.servidor + "Reunite/" + publicacion.getRuta_imagen();
+            String url_imagen = Utilidades.servidor +  publicacion.getRuta_imagen();
             cargarWebServiceImagen(url_imagen, holder);
 
         }
