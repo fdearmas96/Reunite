@@ -120,7 +120,8 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Consultando");
         progreso.show();
-        String url = Utilidades.servidor + "/Reunite/RegistroUsuario.php?usuario=" + registro_usuario.getText().toString()
+        //String url = Utilidades.servidor + "/Reunite/RegistroUsuario.php?usuario=" + registro_usuario.getText().toString()
+        String url = Utilidades.WsRegistroUsuario + "usuario=" + registro_usuario.getText().toString()
                 + "&pass=" + registro_contrasena.getText().toString()+"&usuario_nombre="+registro_nombre.getText().toString()+
                 "&usuario_apellido=" + registro_apellido.getText().toString() + "&usuario_correo="+registro_correo.getText().toString();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
