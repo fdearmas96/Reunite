@@ -4,7 +4,15 @@ import java.util.Date;
 
 public class Utilidades {
     //Ip de api
-    public static String servidor = "http://192.168.1.115:80/"; //"http://192.168.1.108:8080/";
+    //public static String servidor = "http://192.168.1.106:8080/"; //"http://192.168.1.108:8080/";
+    public static String servidor = "http://reunite.hol.es/";
+
+    public static String WsConsultarPublicacion = servidor +"consultarPublicacion.php?";
+    public static String WsLoguin = servidor + "loguin.php?";
+    public static String WsNuevaPublicacion = servidor + "nuevaPublicacion.php?";
+    public static String WsObtenerPublicaciones = servidor + "obtenerPublicaciones.php?";
+
+
 
 
     public static String Tabla_Pub = "publicacion";
