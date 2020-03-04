@@ -15,7 +15,7 @@ public class ConsultaUsuarioLogueado    {
     public String getPass(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String pass = preferences.getString("pass","");
-        pass ="root";
+        //pass =preferences.getString("pass","");
         return pass;
     }
 
