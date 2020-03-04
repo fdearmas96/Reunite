@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity
         //Para llamar a la pantalla de loguin
         //habria que ver si ya no está loqueado
         pedirPermisos();
+        Log.i("****123user pass", "antes de cargar loguin");
         cargarloguin();
 
     }
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         user = user1.getUser(this);
         ConsultaUsuarioLogueado pass1 = new ConsultaUsuarioLogueado();
         pass = pass1.getPass(this);
-
+        Log.i("****123user pass", user +' ' + pass);
         //veo si hay valores y si hay veo si está registrado el usuario
         if (user.equals("") ){
             miLoguin = new LoguinFragment();
@@ -115,7 +116,9 @@ public class MainActivity extends AppCompatActivity
             progreso = new ProgressDialog(this);
             progreso.setMessage("Consultando");
             progreso.show();
-            String url = Utilidades.servidor + "/Reunite/loguin.php?usuario=" + user
+            //String url = Utilidades.servidor + "/Reunite/loguin.php?usuario=" + user
+            //        + "&pass=" + pass;
+            String url = Utilidades.WsLoguin + "usuario=" + user
                     + "&pass=" + pass;
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
             request.add(jsonObjectRequest);
