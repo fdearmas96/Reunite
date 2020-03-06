@@ -25,6 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.reunite.adapters.AdapterComentarios;
+import com.example.reunite.adapters.AdapterItemListaPublicaciones;
 import com.example.reunite.classes.Comentario;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.R;
@@ -142,9 +144,11 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         listaComentarios = new ArrayList<>();
         recyclerComentarios.setLayoutManager(new LinearLayoutManager(getContext()));
         for (int i=0; i< 10;i ++) {
-            Comentario comentario = new Comentario("usuario", "comentario", i, 2);
+            Comentario comentario = new Comentario("usuario", "comentario" +i, i, 2);
             listaComentarios.add(comentario);
         }
+        AdapterComentarios adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
+        recyclerComentarios.setAdapter(adapterComentarios);
 
 
         //cargarWebService();
@@ -187,6 +191,9 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }
+
+
+
 
 
     @Override
