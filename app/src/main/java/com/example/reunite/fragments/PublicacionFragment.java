@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.reunite.classes.Comentario;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.R;
 import com.example.reunite.classes.Utilidades;
@@ -30,6 +33,8 @@ import com.example.reunite.classes.Utilidades;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 /**
@@ -61,6 +66,10 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
+
+    ///**************Para los comentarios:
+    ArrayList<Comentario> listaComentarios ;
+    RecyclerView recyclerComentarios= null;
 
 
     /**
@@ -125,6 +134,18 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         }else {
 
         }
+
+
+        ///***********************Se Carga el recycler de los comentarios*********************************************//listaComentarios
+
+        recyclerComentarios = (RecyclerView) vista.findViewById(R.id.recyclerComentarios);
+        listaComentarios = new ArrayList<>();
+        recyclerComentarios.setLayoutManager(new LinearLayoutManager(getContext()));
+        for (int i=0; i< 10;i ++) {
+            Comentario comentario = new Comentario("usuario", "comentario", i, 2);
+            listaComentarios.add(comentario);
+        }
+
 
         //cargarWebService();
 
