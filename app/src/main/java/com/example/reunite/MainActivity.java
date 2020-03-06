@@ -16,12 +16,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.classes.ConsultaUsuarioLogueado;
 import com.example.reunite.classes.LoguinFragment;
+import com.example.reunite.classes.Publicacion;
 import com.example.reunite.classes.Utilidades;
-import com.example.reunite.fragments.InicioFragment;
 import com.example.reunite.fragments.ListaPublicacionesFragment;
 import com.example.reunite.fragments.NuevaPublicacionFragment;
 import com.example.reunite.fragments.PublicacionFragment;
 import com.example.reunite.fragments.RegistroUsuarioFragment;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.util.Log;
@@ -55,10 +56,11 @@ import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ImplementsFragments, Response.ErrorListener, Response.Listener<JSONObject> {
+        implements NavigationView.OnNavigationItemSelectedListener, ImplementsFragments, Response.ErrorListener, Response.Listener<JSONObject>, IComunicaFragments {
 
     ProgressDialog progreso;
     Fragment miLoguin = null;
+    Fragment mifragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,11 +221,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment mifragment = null;
+        //Fragment mifragment = null;
         boolean fragmentSeleccionado = false;
         if (id == R.id.nav_home) {
             // Handle the camera action
-            mifragment = new InicioFragment();
+            mifragment = new ListaPublicacionesFragment();
             fragmentSeleccionado  = true;
 
         } else if (id == R.id.nav_publicaciones) {
@@ -260,9 +262,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void llamar_fragment(Fragment mifragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main,mifragment).commit();
-    }
+
 
 
     @Override
@@ -332,5 +332,22 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+    }
+
+    @Override
+    public void enviarPublicacion(Publicacion publicacion) {
+        mifragment = new PublicacionFragment();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto", publicacion);
+        mifragment.setArguments(bundleEnvio);
+
+        //Cargo el fragment
+        llamar_fragment (mifragment);
+
+    }
+    private void llamar_fragment(Fragment mifragment) {
+        getSupportFragmentManager().
+                beginTransaction().
+                replace(R.id.content_main,mifragment).addToBackStack(null).commit();//.addToBackStack(null) el .add no estaba
     }
 }

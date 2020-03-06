@@ -57,7 +57,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     TextView publicacionDescri;
     TextView publicacionContacto;
     ProgressDialog progreso;
-
+    Publicacion miPublicacion = new Publicacion();
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
@@ -86,6 +86,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -101,13 +102,57 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         publicacionDescri = (TextView) vista.findViewById(R.id.PublicacionDescri);
         publicacionContacto = (TextView) vista.findViewById(R.id.PublicacionContacto);
         request = Volley.newRequestQueue(getContext());
+        Bundle objetoPublicaicon = getArguments();
+        Publicacion publicacion = null;
 
-        cargarWebService();
+        if (objetoPublicaicon != null) {
+            Log.i("11111Bien", "Le llega objeto");
+            publicacion = (Publicacion) objetoPublicaicon.getSerializable("objeto"); //ese objeto está en el mainActivity
+            int pub_id = publicacion.getPub_id();
+            publicacionTit.setText( publicacion.getPub_Titulo());
+            publicacionDescri.setText(publicacion.getPub_Desc());
+            publicacionContacto.setText(publicacion.getPub_contacto());
+            String url_imagen = Utilidades.servidor +  publicacion.getRuta_imagen();
+            cargarWebServiceImagen(url_imagen, pub_id);
+
+            if (publicacion.getPub_img()!=null){
+                Log.i("11111Bien", "Le llega imagen");
+                ImagenPublicacion.setImageBitmap(publicacion.getPub_img());
+            }else{Log.i("Mal", "No Le llega imagen");
+
+            }
+
+        }else {
+
+        }
+
+        //cargarWebService();
 
         JsonObjectRequest jsonObjectRequest;
 
 
         return vista;
+    }
+
+    private void cargarWebServiceImagen(String url_imagen, int pub_id) {
+        url_imagen = url_imagen.replace(" ", "%20");//para quitar espacios
+        //Toast.makeText(context,  " Busco imagen " + url_imagen , Toast.LENGTH_SHORT).show();
+        ImageRequest imageRequest = new ImageRequest(url_imagen, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                response = Bitmap.createScaledBitmap(response,600,800,true);
+                ImagenPublicacion.setImageBitmap(response);
+            }
+        },
+
+                0, 0, ImageView.ScaleType.CENTER, null,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(context,  "Error al cargar la imagen "  , Toast.LENGTH_SHORT).show();
+                    }
+                });
+        request.add(imageRequest);
     }
 
     private void cargarWebService() {
@@ -135,7 +180,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         progreso.hide();
         Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
 
-        Publicacion miPublicacion = new Publicacion();
+        //Publicacion miPublicacion = new Publicacion();
         JSONArray  json = response.optJSONArray("publicacion");
         JSONObject jsonObject = null;
         try {
@@ -200,16 +245,6 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
 
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

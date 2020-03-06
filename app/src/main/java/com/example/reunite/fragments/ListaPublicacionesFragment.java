@@ -45,6 +45,11 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
     ProgressDialog progreso;
     ArrayList<Publicacion> publicaciones ;//= new Vector();
     Publicacion publicacion = null;
+
+    //Para comunicar fragments:
+    Activity activity;
+    IComunicaFragments interfaceComunicaFragment;// = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         publicaciones = new ArrayList<>();
         //recyclerView.setAdapter(new AdapterItemListaPublicaciones(getContext(), publicaciones));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         obtenerPublicaciones();
 
 
@@ -67,17 +73,9 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         // Consumir servicio !!!
         Vector<Publicacion> publicaciones = new Vector();
         Publicacion publicacion = new Publicacion();
-        /*for (int i=1; i<=50; i++) {
-            Publicacion publicacion = new Publicacion();
-            publicacion.setPub_Titulo("Publicación Ej. " + i);
-            publicaciones.addElement(publicacion);
-        }*/
+
         request = Volley.newRequestQueue(getContext());
         cargarWebService(publicaciones);
-        Activity activity;
-        IComunicaFragments interfaceComunicaFragments;
-
-
 
         return publicaciones;
     }
@@ -103,11 +101,6 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
 
     }
 
-    @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-    }
-
     //El web service responde:
     @Override
     public void onResponse(JSONObject response) {
@@ -121,14 +114,18 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
 
             for (int i=0; i< json.length();i ++){
                 publicacion = new Publicacion();
+
                 jsonObject = null;
                 jsonObject = json.getJSONObject(i);
+                String publicacionId = jsonObject.optString("Pub_ID");
+
+                publicacion.setPub_id(Integer.parseInt(publicacionId));
+
                 publicacion.setPub_Titulo(jsonObject.optString("Pub_Titulo"));
-                //publicacion.setPub_Desc(jsonObject.optString("Pub_Desc"));
-                //publicacion.setPub_contacto(jsonObject.optString("Pub_Contacto"));
                 publicacion.setRuta_imagen(jsonObject.optString("Pub_img"));
- //               //String url_imagen = Utilidades.servidor + "Reunite/" + publicacion.getRuta_imagen();
-//                //cargarWebServiceImagen(url_imagen);
+                publicacion.setPub_Desc(jsonObject.optString("Pub_Desc"));
+                publicacion.setPub_contacto(jsonObject.optString("Pub_Contacto"));
+
 
                 publicaciones.add(publicacion);
                 //publicaciones.addElement(publicacion);
@@ -137,15 +134,21 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
             progreso.hide();
             //Toast.makeText(getContext(), publicacion.getPub_Titulo().toString(), Toast.LENGTH_SHORT).show();
             AdapterItemListaPublicaciones adapterItemListaPublicaciones = new AdapterItemListaPublicaciones(getContext(),publicaciones);
+            recyclerView.setAdapter(adapterItemListaPublicaciones);
 
+
+            //para agregar evento al item seleccionado
             adapterItemListaPublicaciones.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int seleccionada = publicaciones.get(recyclerView.getChildAdapterPosition(getView())).getPub_id();
-                    irSeleccionada(seleccionada);
+                    IComunicaFragments interfaceComunicaFragment = null;// = null;
+                    activity = (Activity) getContext();
+                    interfaceComunicaFragment = (IComunicaFragments) activity;
+                   Toast.makeText(getContext(), "Selección: " + publicaciones.get(recyclerView.getChildAdapterPosition(v)).getPub_Titulo(), Toast.LENGTH_SHORT).show();
+                    interfaceComunicaFragment.enviarPublicacion(publicaciones.get(recyclerView.getChildAdapterPosition(v)));//getChildAdapterPosition(getView())
                 }
             });
-            recyclerView.setAdapter(adapterItemListaPublicaciones);
+
 
 
 
@@ -155,33 +158,5 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
 
     }
 
-    private void irSeleccionada(int seleccionada) {
-        Fragment mifragment = null;
-        mifragment = new PublicacionFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, mifragment);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
- /*   private void cargarWebServiceImagen(String url_imagen) {
-        url_imagen = url_imagen.replace(" ", "%20");//para quitar espacios
-        Toast.makeText(getContext(),  " Busco imagen " + url_imagen , Toast.LENGTH_SHORT).show();
-        ImageRequest imageRequest = new ImageRequest(url_imagen, new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                response = Bitmap.createScaledBitmap(response,600,800,true);
-                ListaPublicacionesFragment.this.publicacion.setPub_img(response);
-                Toast.makeText(getContext(),  "agrego imagen " + publicacion.getPub_Titulo() , Toast.LENGTH_SHORT).show();
-            }
-        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),  "Error al cargar la imagen "  , Toast.LENGTH_SHORT).show();
-            }
-        });
-        request.add(imageRequest);
-
-    }*/
 }

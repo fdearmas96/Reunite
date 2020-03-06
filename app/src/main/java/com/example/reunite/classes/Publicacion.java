@@ -14,13 +14,7 @@ public class Publicacion  implements Serializable {
     private String Pub_Titulo; //Titulo
     private String Pub_Desc; //Descripción
 
-    public String getRuta_imagen() {
-        return ruta_imagen;
-    }
 
-    public void setRuta_imagen(String ruta_imagen) {
-        this.ruta_imagen = ruta_imagen;
-    }
 
     //private String Pub_img; //Dirección de la foto
     private String Pub_contacto;//contacto
@@ -93,5 +87,12 @@ public class Publicacion  implements Serializable {
 
 
         Pub_img = pub_img;
+    }
+    public String getRuta_imagen() {
+        return ruta_imagen;
+    }
+
+    public void setRuta_imagen(String ruta_imagen) {
+        this.ruta_imagen = ruta_imagen;
     }
 }

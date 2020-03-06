@@ -3,6 +3,7 @@ package com.example.reunite.adapters;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,11 @@ public class AdapterItemListaPublicaciones
             pubTitulo = (TextView) itemView.findViewById(R.id.pubTitulo);
             pubImagen = (ImageView) itemView.findViewById(R.id.pubImagen);
 
+
+
         }
+
+
     }
 
     @Override // Creo la vista sin personalizar
@@ -69,13 +74,18 @@ public class AdapterItemListaPublicaciones
 
     @Override // Personalizo el ViewHolder
     public void onBindViewHolder(ViewHolder holder, int posicion) {
-        Publicacion publicacion = vectorPublicaciones.get(posicion);
-        holder.pubTitulo.setText(publicacion.getPub_Titulo());
-        if (publicacion.getRuta_imagen()!=null) {//Si hay una ruta
-            String url_imagen = Utilidades.servidor +  publicacion.getRuta_imagen();
-            cargarWebServiceImagen(url_imagen, holder);
-
+        if (getItemCount()==0){
+            holder.pubTitulo.setText("No hay publicaciones");
+        }else{
+            Publicacion publicacion = vectorPublicaciones.get(posicion);
+            holder.pubTitulo.setText(publicacion.getPub_Titulo());
+            if (publicacion.getRuta_imagen()!=null) {//Si hay una ruta
+                String url_imagen = Utilidades.servidor +  publicacion.getRuta_imagen();
+                cargarWebServiceImagen(url_imagen, holder);
+            }
         }
+
+
 
     }
     private void cargarWebServiceImagen(String url_imagen, final ViewHolder holder) {
@@ -84,20 +94,11 @@ public class AdapterItemListaPublicaciones
         ImageRequest imageRequest = new ImageRequest(url_imagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
-
-
                 response = Bitmap.createScaledBitmap(response,600,800,true);
-                holder.pubImagen.setImageBitmap(response);
-                //ListaPublicacionesFragment.this.publicacion.setPub_img(response);
-                //Toast.makeText(context,  "agrego imagen "  , Toast.LENGTH_SHORT).show();
-
-            }
+                holder.pubImagen.setImageBitmap(response);            }
         },
 
-
                 0, 0, ImageView.ScaleType.CENTER, null,
-
-
                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -105,6 +106,7 @@ public class AdapterItemListaPublicaciones
             }
         });
         request.add(imageRequest);
+
 
     }
 
