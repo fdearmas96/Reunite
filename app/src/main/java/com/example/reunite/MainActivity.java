@@ -23,7 +23,6 @@ import com.example.reunite.fragments.NuevaPublicacionFragment;
 import com.example.reunite.fragments.PublicacionFragment;
 import com.example.reunite.fragments.RegistroUsuarioFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
 import android.view.View;

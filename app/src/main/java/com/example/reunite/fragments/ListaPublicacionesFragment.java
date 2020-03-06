@@ -1,5 +1,6 @@
 package com.example.reunite.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.reunite.IComunicaFragments;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.R;
 import com.example.reunite.adapters.AdapterItemListaPublicaciones;
@@ -70,7 +74,8 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         }*/
         request = Volley.newRequestQueue(getContext());
         cargarWebService(publicaciones);
-
+        Activity activity;
+        IComunicaFragments interfaceComunicaFragments;
 
 
 
@@ -97,6 +102,12 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         Log.i("Error", error.toString());
 
     }
+
+    @Override
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
+    }
+
     //El web service responde:
     @Override
     public void onResponse(JSONObject response) {
@@ -126,6 +137,14 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
             progreso.hide();
             //Toast.makeText(getContext(), publicacion.getPub_Titulo().toString(), Toast.LENGTH_SHORT).show();
             AdapterItemListaPublicaciones adapterItemListaPublicaciones = new AdapterItemListaPublicaciones(getContext(),publicaciones);
+
+            adapterItemListaPublicaciones.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int seleccionada = publicaciones.get(recyclerView.getChildAdapterPosition(getView())).getPub_id();
+                    irSeleccionada(seleccionada);
+                }
+            });
             recyclerView.setAdapter(adapterItemListaPublicaciones);
 
 
@@ -134,6 +153,16 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
             e.printStackTrace();
         }
 
+    }
+
+    private void irSeleccionada(int seleccionada) {
+        Fragment mifragment = null;
+        mifragment = new PublicacionFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, mifragment);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
  /*   private void cargarWebServiceImagen(String url_imagen) {

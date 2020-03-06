@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Utilidades {
     //Ip de api
-    //public static String servidor = "http://192.168.1.106:8080/"; //"http://192.168.1.108:8080/";
+    //public static String servidor = "http://10.11.10.37:8080/Reunite/"; //"http://192.168.1.108:8080/";
     public static String servidor = "http://reunite.hol.es/";
 
     public static String WsConsultarPublicacion     = servidor +"consultarPublicacion.php?";

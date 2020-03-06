@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <FrameLayout
         android:id="@+id/toolbar_container"
@@ -42,6 +43,10 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/progress_bar"
         android:layout_below="@+id/toolbar_container"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentBottom="true"
         android:scrollbars="vertical"
         android:visibility="visible" />
 

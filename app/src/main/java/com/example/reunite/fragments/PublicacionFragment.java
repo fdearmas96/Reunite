@@ -61,9 +61,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
-    public PublicacionFragment() {
-        // Required empty public constructor
-    }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -75,6 +73,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
      */
     // TODO: Rename and change types and number of parameters
     public static PublicacionFragment newInstance(String param1, String param2) {
+
         PublicacionFragment fragment = new PublicacionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -112,13 +111,13 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     }
 
     private void cargarWebService() {
-
+        //this.seleccionada = seleccionada;
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Consultando");
         progreso.show();
 
         //String url = Utilidades.servidor + "Reunite/ConsultarPublicacion.php?Pub_ID=6";
-        String url = Utilidades.WsConsultarPublicacion +"Pub_ID=1";
+        String url = Utilidades.WsConsultarPublicacion +"Pub_ID=" ;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }

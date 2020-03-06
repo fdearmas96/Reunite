@@ -25,11 +25,15 @@ import com.example.reunite.fragments.ListaPublicacionesFragment;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterItemListaPublicaciones.ViewHolder> {
+public class AdapterItemListaPublicaciones
+        extends RecyclerView.Adapter<AdapterItemListaPublicaciones.ViewHolder>
+        implements View.OnClickListener
+{
     private LayoutInflater inflador;
     protected ArrayList<Publicacion> vectorPublicaciones; // Datos a visualizar
     RequestQueue request;
     Context context;
+    private View.OnClickListener listener;
 
 //    public AdapterItemListaPublicaciones(@NonNull ViewGroup parent, Vector<Publicacion> publicaciones) {
 //        inflador = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,7 +46,6 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
         this.context=context;
         request = Volley.newRequestQueue(context);
     }
-
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,6 +63,7 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
     @Override // Creo la vista sin personalizar
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = inflador.inflate(R.layout.item_lista_publicaciones, null);
+        v.setOnClickListener(this);
         return new ViewHolder(v);
     }
 
@@ -109,5 +113,17 @@ public class AdapterItemListaPublicaciones extends RecyclerView.Adapter<AdapterI
 
         return vectorPublicaciones.size();
     }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (listener!=null){
+            listener.onClick(v);
+        }
+    }
+
 }
 

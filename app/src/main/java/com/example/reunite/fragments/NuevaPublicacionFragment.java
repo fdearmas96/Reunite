@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -183,17 +184,20 @@ public class NuevaPublicacionFragment extends Fragment {
                 "&titulo=nada" +
                 "&descripcion=nada" +
                 "&contacto="+nueva_P_Contacto.getText().toString();*/
+        Log.i("****Antes de llamar", "antes de cargar ");
         stringrequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")){
+                    Log.i("****Se graba", "antes de cargar ");
                     Toast.makeText(getContext(), "Se registró", Toast.LENGTH_SHORT).show();
 
                     //Llamo al fragment de inicio el que muestra las publicaciones:
                     inicio();
 
                 }else {
+                    Log.i("*No se pudo registrar", "No se pudo registrar ");
                     Toast.makeText(getContext(), "No se pudo registrar" + response, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -201,6 +205,7 @@ public class NuevaPublicacionFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progreso.hide();
+                Log.i("*No se pudo registra", "Algo falló ");
                 Toast.makeText(getContext(), "Algo falló" + error, Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -222,7 +227,11 @@ public class NuevaPublicacionFragment extends Fragment {
 
                 return parametros;
             }
-        };request.add(stringrequest);
+        };
+        stringrequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));//Intento = 1 sino la cargaba 2 veces
+        request.add(stringrequest);
+
+
 
     }
 
@@ -325,6 +334,7 @@ public class NuevaPublicacionFragment extends Fragment {
                             });
                     bitmap = BitmapFactory.decodeFile(path);
                     //por algun motivo viene la gira -90 grados así que la giro
+                    /*
                     Matrix matrix = new Matrix();
                     matrix.preRotate(90);
                     bitmap =Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
@@ -332,6 +342,13 @@ public class NuevaPublicacionFragment extends Fragment {
 
 
                     bitmap = Bitmap.createScaledBitmap(bitmap,600,800,true);///////////////////////////
+                    */
+                    Matrix matrix = new Matrix();
+                    int ancho = bitmap.getWidth();
+                    int alto  = bitmap.getHeight();
+                    if (ancho > alto){
+                        matrix.preRotate(90);
+                    }
 
                     nueva_P_imagen.setImageBitmap(bitmap);
                     //la vuelvo a girar ya que cuando bajo el tamaño también la giro
@@ -357,14 +374,17 @@ public class NuevaPublicacionFragment extends Fragment {
 
             Matrix matrix = new Matrix();
             matrix.postScale(1,1);
-            matrix.setRotate(90);
-            bitmap = Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true); //La giro
+            if (ancho > alto){
+                matrix.preRotate(90);
+            }
+            //matrix.preRotate(90);
+            //bitmap = Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true); //La giro
             //matrix.setRotate(-90);
 
-            //matrix.postScale(escalaAncho,escalaAlto);
-            //bitmap = Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true);
+            matrix.postScale(escalaAncho,escalaAlto);
+            bitmap = Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true);
 
-            bitmap = Bitmap.createScaledBitmap(bitmap,600,800,true); //le doy el tamaño 800x600
+            ////bitmap = Bitmap.createScaledBitmap(bitmap,600,800,true); //le doy el tamaño 800x600
             return  bitmap;
         }else {
             return bitmap;

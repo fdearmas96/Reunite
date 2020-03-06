@@ -5,9 +5,10 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Publicacion {
+public class Publicacion  implements Serializable {
 
     private int pub_id;
     private String Pub_Titulo; //Titulo
