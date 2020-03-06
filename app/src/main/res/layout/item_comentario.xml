@@ -16,7 +16,8 @@
     <TextView
         android:id="@+id/comentario_body_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#B5B2B2"
         android:text="Comentario"
         android:textSize="25dp" />
 
