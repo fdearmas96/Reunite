@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,37 +22,39 @@ public class AdapterComentarios extends RecyclerView.Adapter<AdapterComentarios.
     RequestQueue request;
     Context context;
 
-    public AdapterComentarios(Context context, ArrayList<Comentario> comentarios){
+    public AdapterComentarios(Context context, ArrayList<Comentario> listaComentarios){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
+        this.listaComentarios = listaComentarios;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View v = inflater.inflate(R.layout., null);
-       // v.setOnClickListener(this);
-        //return new AdapterItemListaPublicaciones.ViewHolder(v);
-        return null;
+        View v = inflater.inflate(R.layout.item_comentario, null);
 
-
-
+        return new  ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        Comentario comentario = listaComentarios.get(position);
+        holder.usuarioComentario.setText(comentario.getComentarioUsuario());
+        holder.comentarioBody.setText(comentario.getComentario());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listaComentarios.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView usuarioComentario;
+        public TextView comentarioBody;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            usuarioComentario = itemView.findViewById(R.id.usuario_comentario_id);
+            comentarioBody    = itemView.findViewById(R.id.comentario_body_id);
         }
     }
 }
