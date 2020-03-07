@@ -1,6 +1,6 @@
 package com.example.reunite;
 
-import com.example.reunite.classes.LoguinFragment;
+import com.example.reunite.fragments.LoguinFragment;
 import com.example.reunite.fragments.NuevaPublicacionFragment;
 import com.example.reunite.fragments.PublicacionFragment;
 

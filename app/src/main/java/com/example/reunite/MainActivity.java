@@ -15,7 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.classes.ConsultaUsuarioLogueado;
-import com.example.reunite.classes.LoguinFragment;
+import com.example.reunite.fragments.LoguinFragment;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.classes.Utilidades;
 import com.example.reunite.fragments.ListaPublicacionesFragment;
@@ -23,7 +23,6 @@ import com.example.reunite.fragments.MiListaPublicacionesFragment;
 import com.example.reunite.fragments.NuevaPublicacionFragment;
 import com.example.reunite.fragments.PublicacionFragment;
 import com.example.reunite.fragments.RegistroUsuarioFragment;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.util.Log;
@@ -38,6 +37,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
-                Fragment fragment = new ChatFerFragment();
-                llamar_fragment(fragment);
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                //Fragment fragment = new ChatFerFragment();
+                //llamar_fragment(fragment);
 
             }
         });

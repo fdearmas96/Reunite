@@ -1,4 +1,4 @@
-package com.example.reunite.classes;
+package com.example.reunite.fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -25,8 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.R;
-import com.example.reunite.fragments.ListaPublicacionesFragment;
-import com.example.reunite.fragments.RegistroUsuarioFragment;
+import com.example.reunite.classes.GuardarUsuario;
+import com.example.reunite.classes.Utilidades;
 
 import org.json.JSONArray;
 import org.json.JSONException;

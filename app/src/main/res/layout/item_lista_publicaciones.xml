@@ -6,37 +6,32 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <TextView
+        android:id="@+id/pubTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="top"
+        android:text="@string/pubTitulo"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/pubImagen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:contentDescription="@string/pubImagen"
+        android:maxWidth="600dp"
+        android:maxHeight="800dp"
+        app:srcCompat="@drawable/ic_menu_camera" />
+
+    <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="538dp" >
-
-        <TextView
-            android:id="@+id/pubTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            android:gravity="top"
-            android:text="@string/pubTitulo"
-            android:textSize="30sp" />
-
-        <ImageView
-            android:id="@+id/pubImagen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:contentDescription="@string/pubImagen"
-            android:maxWidth="600dp"
-            android:maxHeight="800dp"
-            app:srcCompat="@drawable/cargando" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="?android:attr/listDivider" />
-    </androidx.cardview.widget.CardView>
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/listDivider" />
 
 </LinearLayout>

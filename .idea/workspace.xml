@@ -50,7 +50,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_XL_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="850c0d74fbd1" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -76,14 +76,21 @@
   </component>
   <component name="ProjectId" id="1YMb5u6W8cyk0203TzOnOncApeX" />
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="249dca06" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-02-26T23:56:31.482Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pruebas" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-03-07T19:09:38.884Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.reunite" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.reunite.fragments" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Fernando\AndroidStudioProjects\Reunite\app\src\main\res\drawable-v24" />
+      <recent name="C:\Users\Fernando\AndroidStudioProjects\Reunite\app\src\main\res\mipmap-anydpi-v26" />
     </key>
   </component>
   <component name="RunDashboard">

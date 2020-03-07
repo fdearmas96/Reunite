@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -124,19 +127,23 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
         String url = Utilidades.WsRegistroUsuario + "usuario=" + registro_usuario.getText().toString()
                 + "&pass=" + registro_contrasena.getText().toString()+"&usuario_nombre="+registro_nombre.getText().toString()+
                 "&usuario_apellido=" + registro_apellido.getText().toString() + "&usuario_correo="+registro_correo.getText().toString();
+        Log.i("****Url registro", url );
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         request.add(jsonObjectRequest);
+
     }
     @Override
     public void onErrorResponse(VolleyError error) {
         progreso.hide();
         Toast.makeText(getContext(), "No se pudo conectar" + error.toString(), Toast.LENGTH_SHORT).show();
+        Log.i("****Url registro","error response" );
     }
     @Override
     public void onResponse(JSONObject response) {
         progreso.hide();
         //esto muestra la respuesta entera:
-        Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
+       //Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
 
         JSONArray json = response.optJSONArray("registro");
         JSONObject jsonObject = null;
@@ -166,6 +173,8 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
                 String passGuard = registro_contrasena.getText().toString();
                GuardarUsuario guardarUsuario = new GuardarUsuario();
                guardarUsuario.GuardarUsuario(userGuar,passGuard,context);
+                Log.i("****Url registro","usuario creado" );
+                inicio();
 
 
 
@@ -188,6 +197,16 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
             e.printStackTrace();
         }
 
+    }
+
+    private void inicio() {
+        Fragment mifragmentNuvoUsuario = null;
+        mifragmentNuvoUsuario = new ListaPublicacionesFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, mifragmentNuvoUsuario);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
