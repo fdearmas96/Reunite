@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_publicacion"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Publicación" />
+            android:title="Mis Publicaciones" />
         <item
             android:id="@+id/nav_nueva_publicacion"
             android:icon="@drawable/ic_menu_slideshow"

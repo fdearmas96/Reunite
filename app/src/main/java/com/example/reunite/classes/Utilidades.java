@@ -17,6 +17,7 @@ public class Utilidades {
 
 
 
+
     public static String Tabla_Pub = "publicacion";
     public static String Publicacion_Id = "Pub_ID";
     public static String Pub_Titulo = "Pub_Titulo"; //Titulo

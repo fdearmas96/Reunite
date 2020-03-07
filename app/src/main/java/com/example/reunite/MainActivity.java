@@ -19,6 +19,7 @@ import com.example.reunite.classes.LoguinFragment;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.classes.Utilidades;
 import com.example.reunite.fragments.ListaPublicacionesFragment;
+import com.example.reunite.fragments.MiListaPublicacionesFragment;
 import com.example.reunite.fragments.NuevaPublicacionFragment;
 import com.example.reunite.fragments.PublicacionFragment;
 import com.example.reunite.fragments.RegistroUsuarioFragment;
@@ -233,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             fragmentSeleccionado  = true;
 
         } else if (id == R.id.nav_publicacion) {
-            mifragment = new PublicacionFragment();
+            mifragment = new MiListaPublicacionesFragment();
             fragmentSeleccionado  = true;
 
         } else if (id == R.id.nav_nueva_publicacion) {

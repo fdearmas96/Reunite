@@ -29,7 +29,7 @@
             android:contentDescription="@string/pubImagen"
             android:maxWidth="600dp"
             android:maxHeight="800dp"
-            app:srcCompat="@drawable/ic_menu_camera" />
+            app:srcCompat="@drawable/cargando" />
 
         <View
             android:id="@+id/divider"
