@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#FBFBFB"
     tools:context=".fragments.PublicacionFragment">
 
 
@@ -37,17 +37,6 @@
                 tools:srcCompat="@tools:sample/avatars[0]" />
 
             <TextView
-                android:id="@+id/PublicacionDescri"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="TextView"
-                android:textSize="25dp" />
-
-            <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,12 +56,23 @@
                 android:text="TextView"
                 android:textSize="28sp" />
 
+            <TextView
+                android:id="@+id/PublicacionDescri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                android:textSize="25dp" />
+
             <LinearLayout
                 android:id="@+id/layoutComentarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="#E8E1E1"
+                android:background="#FFFFFF"
                 android:isScrollContainer="true"
                 android:orientation="vertical">
 
@@ -98,6 +98,13 @@
                 android:gravity="bottom"
                 android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btn_comentar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Comentar" />
+
                 <EditText
                     android:id="@+id/comentario_body_id"
                     android:layout_width="wrap_content"
@@ -105,13 +112,6 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
-
-                <Button
-                    android:id="@+id/btn_comentar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="Comentar" />
 
             </LinearLayout>
 

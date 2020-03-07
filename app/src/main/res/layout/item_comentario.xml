@@ -10,13 +10,13 @@
         android:id="@+id/usuario_comentario_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#1438EA"
         android:textSize="23dp" />
 
     <TextView
         android:id="@+id/comentario_body_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#B5B2B2"
         android:textSize="25dp" />
 
     <View
