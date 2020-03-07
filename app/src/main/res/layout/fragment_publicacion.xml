@@ -45,7 +45,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="TextView"
-                android:textSize="28sp" />
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="#E8E1E1"
+                android:isScrollContainer="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -85,32 +86,35 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerComentarios"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+            </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/comentario_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textPersonName" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/btn_comentar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Comentar" />
-                </LinearLayout>
+                <EditText
+                    android:id="@+id/comentario_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/btn_comentar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Comentar" />
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
