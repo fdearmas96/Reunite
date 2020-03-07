@@ -144,7 +144,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         listaComentarios = new ArrayList<>();
         recyclerComentarios.setLayoutManager(new LinearLayoutManager(getContext()));
         for (int i=0; i< 10;i ++) {
-            Comentario comentario = new Comentario("usuario", "comentario" +i, i, 2);
+            Comentario comentario = new Comentario("usuario", "comenocomentariocdasfgomentarhgfhiocomentario1" +i, i, 1);
             listaComentarios.add(comentario);
         }
         AdapterComentarios adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
