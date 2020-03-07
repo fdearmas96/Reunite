@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +28,8 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.adapters.AdapterComentarios;
-import com.example.reunite.adapters.AdapterItemListaPublicaciones;
 import com.example.reunite.classes.Comentario;
+import com.example.reunite.classes.ConsultaUsuarioLogueado;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.R;
 import com.example.reunite.classes.Utilidades;
@@ -67,12 +69,17 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     Publicacion miPublicacion = new Publicacion();
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
-
+    int IdentidadDePub;
 
     ///**************Para los comentarios:
     ArrayList<Comentario> listaComentarios ;
     RecyclerView recyclerComentarios= null;
+    Button btn_comentar;
+    EditText comentario_body_id;
+    Comentario comentario = null;
 
+    String url = null;
+    String urlComparar = null;
 
     /**
      * Use this factory method to create a new instance of
@@ -112,6 +119,9 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         ImagenPublicacion = (ImageView) vista.findViewById(R.id.ImagenPublicacion);
         publicacionDescri = (TextView) vista.findViewById(R.id.PublicacionDescri);
         publicacionContacto = (TextView) vista.findViewById(R.id.PublicacionContacto);
+        btn_comentar = vista.findViewById(R.id.btn_comentar);
+        comentario_body_id = vista.findViewById(R.id.comentario_body_id);
+
         request = Volley.newRequestQueue(getContext());
         Bundle objetoPublicaicon = getArguments();
         Publicacion publicacion = null;
@@ -120,6 +130,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
             Log.i("11111Bien", "Le llega objeto");
             publicacion = (Publicacion) objetoPublicaicon.getSerializable("objeto"); //ese objeto está en el mainActivity
             int pub_id = publicacion.getPub_id();
+            this.IdentidadDePub = pub_id;
             publicacionTit.setText( publicacion.getPub_Titulo());
             publicacionDescri.setText(publicacion.getPub_Desc());
             publicacionContacto.setText(publicacion.getPub_contacto());
@@ -127,11 +138,11 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
             cargarWebServiceImagen(url_imagen, pub_id);
 
             if (publicacion.getPub_img()!=null){
-                Log.i("11111Bien", "Le llega imagen");
                 ImagenPublicacion.setImageBitmap(publicacion.getPub_img());
             }else{Log.i("Mal", "No Le llega imagen");
 
             }
+
 
         }else {
 
@@ -143,20 +154,48 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         recyclerComentarios = (RecyclerView) vista.findViewById(R.id.recyclerComentarios);
         listaComentarios = new ArrayList<>();
         recyclerComentarios.setLayoutManager(new LinearLayoutManager(getContext()));
-        for (int i=0; i< 10;i ++) {
-            Comentario comentario = new Comentario("usuario", "comenocomentariocdasfgomentarhgfhiocomentario1" +i, i, 1);
-            listaComentarios.add(comentario);
-        }
-        AdapterComentarios adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
-        recyclerComentarios.setAdapter(adapterComentarios);
+        cargarComentarios(publicacion.getPub_id());
 
 
-        //cargarWebService();
+        ////**************Para agregar los comentarios *********//////////////////
+        //btn_comentar.setOnClickListener(agregarComentario(publicacion.getPub_id()));
+        btn_comentar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                agregarComentario();
+            }
+        });
 
-        JsonObjectRequest jsonObjectRequest;
+        //JsonObjectRequest jsonObjectRequest;
 
 
         return vista;
+    }
+
+    private  void agregarComentario() {
+        progreso = new ProgressDialog(getContext());
+        progreso.setMessage("Agregando comentarios");
+        progreso.show();
+        String usuarioLogueado = new ConsultaUsuarioLogueado().getUser(getContext());
+        //http://localhost:8080/Reunite/comentarios.php?accion=INS&usuario=Fernando&publicacion=1&comentario=magui2
+        this.url = Utilidades.WsComentarios+"accion=INS&usuario="+usuarioLogueado+"&publicacion="+
+                this.IdentidadDePub+"&comentario=" + comentario_body_id.getText();
+        this.urlComparar = this.url;
+        Log.i("*****URL_Agregar", url);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,this.url,null,this,this);
+        request.add(jsonObjectRequest);
+    }
+
+
+    private void cargarComentarios(int pub_id) {
+        progreso = new ProgressDialog(getContext());
+        progreso.setMessage("Cargando comentarios");
+        progreso.show();
+        this.url = Utilidades.WsComentarios+"accion=DSP&publicacion="+pub_id;
+        this.urlComparar ="";
+        Log.i("*********URL********", url);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,this.url,null,this,this);
+        request.add(jsonObjectRequest);
     }
 
     private void cargarWebServiceImagen(String url_imagen, int pub_id) {
@@ -180,56 +219,58 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         request.add(imageRequest);
     }
 
-    private void cargarWebService() {
-        //this.seleccionada = seleccionada;
-        progreso = new ProgressDialog(getContext());
-        progreso.setMessage("Consultando");
-        progreso.show();
-
-        //String url = Utilidades.servidor + "Reunite/ConsultarPublicacion.php?Pub_ID=6";
-        String url = Utilidades.WsConsultarPublicacion +"Pub_ID=" ;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonObjectRequest);
-    }
-
-
-
-
 
     @Override
     public void onErrorResponse(VolleyError error) {
+
         progreso.hide();
-        Toast.makeText(getContext(), "No se pudo consultar" + error.toString(), Toast.LENGTH_SHORT).show();
-        Log.i("Error", error.toString());
+        Toast.makeText(getContext(), "Ocurrió un error", Toast.LENGTH_SHORT).show();
+        Log.i("Error", error.toString()+url);
     }
 
     @Override
     public void onResponse(JSONObject response) {
         progreso.hide();
-        Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(getContext(),"Mensaje: " +response, Toast.LENGTH_SHORT).show();
         //Publicacion miPublicacion = new Publicacion();
-        JSONArray  json = response.optJSONArray("publicacion");
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = json.getJSONObject(0);
-            miPublicacion.setPub_Titulo(jsonObject.optString("Pub_Titulo"));
-            miPublicacion.setPub_Desc(jsonObject.optString("Pub_Desc"));
-            miPublicacion.setPub_contacto(jsonObject.optString("Pub_Contacto"));
-            miPublicacion.setRuta_imagen(jsonObject.optString("Pub_img"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (url.equals(Utilidades.WsComentarios+"accion=DSP&publicacion="+this.IdentidadDePub) ){
+            JSONArray  json = response.optJSONArray("comentario");
+            JSONObject jsonObject = null;
+            try {
+                listaComentarios.clear();
+                AdapterComentarios adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
+                recyclerComentarios.setAdapter(adapterComentarios);
+                for (int i=0; i< json.length();i ++){
+                    jsonObject = null;
+                    jsonObject = json.getJSONObject(i);
+                    if (jsonObject.optString("success").equals("0") ){
+                        comentario = new Comentario();
+                        comentario.setComentarioId(Integer.parseInt(jsonObject.optString("comentario_Id")));
+                        comentario.setComentarioUsuario(jsonObject.optString("Usuario_ID"));
+                        comentario.setComentarioPublicación(Integer.parseInt(jsonObject.optString("Pub_ID")));
+                        comentario.setComentario(jsonObject.optString("comentario_body"));
+                        listaComentarios.add(comentario);
+                        Log.i("Error", "agrego comentario " + comentario.getComentario());
+                         adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
+                        recyclerComentarios.setAdapter(adapterComentarios);
+                    }
+
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        publicacionTit.setText( miPublicacion.getPub_Titulo());
-        publicacionDescri.setText(miPublicacion.getPub_Desc());
-        publicacionContacto.setText(miPublicacion.getPub_contacto());
-        String url_imagen = Utilidades.servidor + "Reunite/" + miPublicacion.getRuta_imagen();
-        Toast.makeText(getContext(), "No se pudo consultar" + url_imagen , Toast.LENGTH_SHORT).show();
-        cargarWebServiceImagen(url_imagen);
-        //ImagenPublicacion.setImageBitmap(miPublicacion.getPub_img());
+        if(urlComparar.equals(url)){
+            //Por ahora nada
+            cargarComentarios(IdentidadDePub);
+            comentario_body_id.setText("");
+        }
 
 
     }
+
 
     private void cargarWebServiceImagen(String url_imagen) {
         url_imagen = url_imagen.replace(" ", "%20");//para quitar espacios

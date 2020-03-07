@@ -6,12 +6,12 @@ public class Comentario {
     private int comentarioId;
     private int comentarioPublicación;
 
-    public Comentario(String comentarioUsuario, String comentario, int comentarioId, int comentarioPublicación) {
+    /*public Comentario(String comentarioUsuario, String comentario, int comentarioId, int comentarioPublicación) {
         this.comentarioUsuario = comentarioUsuario;
         this.comentario = comentario;
         this.comentarioId = comentarioId;
         this.comentarioPublicación = comentarioPublicación;
-    }
+    }*/
 
 
     public String getComentarioUsuario() {

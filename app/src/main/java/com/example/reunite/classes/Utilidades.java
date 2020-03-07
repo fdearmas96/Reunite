@@ -12,6 +12,7 @@ public class Utilidades {
     public static String WsNuevaPublicacion         = servidor + "nuevaPublicacion.php?";
     public static String WsObtenerPublicaciones     = servidor + "obtenerPublicaciones.php?";
     public static String WsRegistroUsuario          = servidor + "registroUsuario.php?";
+    public static String WsComentarios              = servidor + "comentarios.php?";
 
 
 
