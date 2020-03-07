@@ -1,6 +1,7 @@
 package com.example.reunite.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class AdapterComentarios extends RecyclerView.Adapter<AdapterComentarios.
         Comentario comentario = listaComentarios.get(position);
         holder.usuarioComentario.setText(comentario.getComentarioUsuario());
         holder.comentarioBody.setText(comentario.getComentario());
+        Log.i("Agrego ", comentario.getComentario());
     }
 
     @Override
@@ -55,6 +57,7 @@ public class AdapterComentarios extends RecyclerView.Adapter<AdapterComentarios.
             super(itemView);
             usuarioComentario = itemView.findViewById(R.id.usuario_comentario_id);
             comentarioBody    = itemView.findViewById(R.id.comentario_body_id);
+
         }
     }
 }
