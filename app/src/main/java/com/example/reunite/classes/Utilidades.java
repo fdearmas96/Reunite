@@ -7,12 +7,13 @@ public class Utilidades {
     //public static String servidor = "http://10.11.10.37:8080/Reunite/"; //"http://192.168.1.108:8080/";
     public static String servidor = "http://reunite.hol.es/";
 
-    public static String WsConsultarPublicacion     = servidor +"consultarPublicacion.php?";
+    public static String WsConsultarPublicacion     = servidor + "consultarPublicacion.php?";
     public static String WsLoguin                   = servidor + "loguin.php?";
     public static String WsNuevaPublicacion         = servidor + "nuevaPublicacion.php?";
     public static String WsObtenerPublicaciones     = servidor + "obtenerPublicaciones.php?";
     public static String WsRegistroUsuario          = servidor + "registroUsuario.php?";
     public static String WsComentarios              = servidor + "comentarios.php?";
+    public static String wsObtenerMensajes          = servidor + "obtenerMensajes.php?";
 
 
 
