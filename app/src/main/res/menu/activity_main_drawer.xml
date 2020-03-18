@@ -21,6 +21,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Nueva Publicación" />
         <item
+            android:id="@+id/nav_mensajes"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Mensajes" />
+        <item
             android:id="@+id/nav_loguin"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_tools" />

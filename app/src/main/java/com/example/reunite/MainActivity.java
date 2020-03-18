@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.classes.ConsultaUsuarioLogueado;
+import com.example.reunite.fragments.ChatFragment;
 import com.example.reunite.fragments.LoguinFragment;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.classes.Utilidades;
@@ -69,17 +70,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                //Fragment fragment = new ChatFerFragment();
-                //llamar_fragment(fragment);
-
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -247,6 +237,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_nuevo_usuario) {
             mifragment = new RegistroUsuarioFragment();
+            fragmentSeleccionado = true;
+
+        } else if (id == R.id.nav_mensajes) {
+            mifragment = new ChatFragment();
             fragmentSeleccionado = true;
 
         } else if (id == R.id.nav_send) {
