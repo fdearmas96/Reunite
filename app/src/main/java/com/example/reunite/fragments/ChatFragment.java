@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -43,7 +44,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
     RequestQueue request;
     private ArrayList<Mensaje> mensajes;
     ProgressDialog progreso;
-    Button btn_enviar;
+    ImageButton btn_enviar;
     StringRequest stringrequest;
     EditText msg_send;
 
