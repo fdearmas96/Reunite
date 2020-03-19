@@ -71,6 +71,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                     @Override
                     public void onClick(View view) {
                         llamarWebService();
+                        msg_send.getText().clear();
                     }
                 });
 
