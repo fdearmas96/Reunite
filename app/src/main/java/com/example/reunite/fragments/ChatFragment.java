@@ -75,7 +75,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                     }
                 });
 
-        msg_send = vista.findViewById(R.id.editText);
+        msg_send = vista.findViewById(R.id.mensaje_enviar);
         mensajes = new ArrayList<>();
         obtener_mensajes();
 
@@ -94,11 +94,8 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                 if (response.trim().equalsIgnoreCase("registra")){
                     Log.i("****Se graba", "antes de cargar ");
                     Toast.makeText(getContext(), "Se registró", Toast.LENGTH_SHORT).show();
-
-                    //Llamo al fragment de inicio el que muestra las publicaciones:
-                    inicio();
                 } else {
-                    Log.i("*No se pudo registrar", "No se pudo registrar ");
+                    Log.e("Error", "No se pudo registrar " + response);
                     Toast.makeText(getContext(), "No se pudo registrar" + response, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -106,7 +103,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
             @Override
             public void onErrorResponse(VolleyError error) {
                 progreso.hide();
-                Log.i("*No se pudo registra", "Algo falló ");
+                Log.e("*No se pudo registra", "Algo falló ");
                 Toast.makeText(getContext(), "Algo falló" + error, Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -115,8 +112,9 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                 ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
                 String usersend = user1.getUser(getContext());
                 String userreceive = "Pepe";
-                String messagebody = msg_send.getText().toString();
+                String messagebody = msg_send.getEditableText().toString();
                 Map<String,String> parametros = new HashMap<>();
+                Log.d("Debug", messagebody);
                 parametros.put("usersend", usersend);
                 parametros.put("userreceive", userreceive);
                 parametros.put("messagebody", messagebody);
@@ -124,7 +122,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                 return parametros;
             }
         };
-        stringrequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));//Intento = 1 sino la cargaba 2 veces
+        stringrequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)); //Intento = 1 sino la cargaba 2 veces
         request.add(stringrequest);
     }
 
@@ -158,27 +156,31 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
     @Override
     public void onErrorResponse(VolleyError error) {
         progreso.hide();
-        Toast.makeText(getContext(), "No se pudo consultar" + error.toString(), Toast.LENGTH_SHORT).show();
-        Log.i("Error", error.toString());
+        Toast.makeText(getContext(), "No se pudo consultar " + error.toString(), Toast.LENGTH_SHORT).show();
+        Log.e("Error", error.toString());
     }
 
     @Override
     public void onResponse(JSONObject response) {
         JSONArray json = response.optJSONArray("mensajes");
         JSONObject jsonObject;
+        Log.d("Debug", json.toString());
         try {
             for (int i = 0; i < json.length(); i++) {
                 jsonObject = json.getJSONObject(i);
+                Log.d("Debug", String.valueOf(jsonObject));
 
-                String mensaje_body = jsonObject.optString("Msg_texto");
-                String mensaje_userreceive = jsonObject.optString("Msg_userreceive");
-                String mensaje_usersend = jsonObject.optString("Msg_usersend");
+                String respuestanull = jsonObject.optString("mensaje");
 
-                Mensaje mensaje = new Mensaje(mensaje_body, mensaje_userreceive, mensaje_usersend);
-                mensajes.add(mensaje);
+                if (!respuestanull.equalsIgnoreCase("No hay mensajes")) {
+                    String mensaje_body = jsonObject.optString("Msg_texto");
+                    String mensaje_userreceive = jsonObject.optString("Msg_userreceive");
+                    String mensaje_usersend = jsonObject.optString("Msg_usersend");
+
+                    Mensaje mensaje = new Mensaje(mensaje_body, mensaje_userreceive, mensaje_usersend);
+                    mensajes.add(mensaje);
+                }
             }
-            Mensaje mensaje = new Mensaje("jej", "", "");
-            mensajes.add(mensaje);
             progreso.hide();
             AdapterMensajes adapterMensajes = new AdapterMensajes(getContext(), mensajes);
             recyclerView.setAdapter(adapterMensajes);
