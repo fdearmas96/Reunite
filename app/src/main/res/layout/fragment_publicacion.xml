@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBFBFB"
     tools:context=".fragments.PublicacionFragment">
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EFEDED">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="8dp">
 
             <TextView
                 android:id="@+id/publicacionTit"
@@ -25,7 +24,6 @@
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textSize="28sp" />
-
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,21 +40,27 @@
 
                     android:contentDescription="@string/pubImagen"
                     android:scaleType="fitXY"
-                    app:layout_constraintDimensionRatio="1:1"
 
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/avatars[0]" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="?android:attr/listDivider" />
+
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Contacto"
                 android:textSize="18sp"
@@ -66,9 +70,6 @@
                 android:id="@+id/PublicacionContacto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="TextView"
                 android:textSize="18sp" />
@@ -77,9 +78,6 @@
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Descripción"
                 android:textSize="18sp"
@@ -89,9 +87,6 @@
                 android:id="@+id/PublicacionDescri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="TextView"
                 android:textSize="18sp" />
@@ -100,9 +95,6 @@
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
                 android:text="Comentarios:"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -111,9 +103,9 @@
                 android:id="@+id/layoutComentarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="8dp"
+
+                android:layout_marginTop="8dp"
+
                 android:layout_marginBottom="8dp"
                 android:background="#FFFFFF"
                 android:isScrollContainer="true"
@@ -121,6 +113,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerComentarios"
+                    android:background="@color/cardview_light_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -131,9 +124,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="bottom"
                 android:orientation="horizontal">
 
