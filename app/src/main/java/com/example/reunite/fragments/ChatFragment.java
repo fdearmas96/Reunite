@@ -79,6 +79,8 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
         mensajes = new ArrayList<>();
         obtener_mensajes();
 
+        getActivity().setTitle("Mensajes");
+
         return vista;
     }
 

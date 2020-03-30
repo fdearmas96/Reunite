@@ -170,6 +170,9 @@ public class NuevaPublicacionFragment extends Fragment {
         });
 
         pedirPermisos();
+
+        getActivity().setTitle("Nueva Publicación");
+
         return vista;
     }
 

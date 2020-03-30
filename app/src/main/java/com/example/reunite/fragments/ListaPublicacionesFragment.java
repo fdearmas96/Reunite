@@ -59,7 +59,7 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         publicaciones = new ArrayList<>();
         //recyclerView.setAdapter(new AdapterItemListaPublicaciones(getContext(), publicaciones));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        getActivity().setTitle("Publicaciones");
         obtenerPublicaciones();
 
 

@@ -112,7 +112,7 @@ public class RegistroUsuarioFragment extends Fragment implements Response.ErrorL
             }
         });
 
-
+        getActivity().setTitle("Registrar Usuario");
 
         return vista;
     }

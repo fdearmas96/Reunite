@@ -15,31 +15,27 @@
         <item
             android:id="@+id/nav_publicacion"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Mis Publicaciones" />
+            android:title="@string/menu_misPublicaciones" />
         <item
             android:id="@+id/nav_nueva_publicacion"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Nueva Publicación" />
+            android:title="@string/menu_nuevaPublicacion" />
         <item
             android:id="@+id/nav_mensajes"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Mensajes" />
-        <item
-            android:id="@+id/nav_loguin"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/menu_mensajes" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Cuenta">
         <menu>
             <item
-                android:id="@+id/nav_nuevo_usuario"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
+                android:id="@+id/nav_loguin"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/menu_loguin" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:id="@+id/nav_nuevo_usuario"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/menu_nuevoUsuario" />
         </menu>
     </item>
 

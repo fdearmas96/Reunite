@@ -14,72 +14,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Titulo"
-            android:textAlignment="center"
-            android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/nueva_P_titulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:maxLength="50"
-            android:textSize="24sp" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Título"
+                android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/nueva_P_imagen"
-            android:layout_width="422dp"
-            android:layout_height="292dp"
-            android:layout_gravity="center_horizontal"
-            android:baselineAlignBottom="false"
-            android:contentDescription="Imagen"
-            app:srcCompat="@drawable/ic_menu_camera"
-            tools:ignore="OnClick" />
+            <EditText
+                android:id="@+id/nueva_P_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:maxLength="50"
+                android:textSize="18sp"
+                tools:text="Nueva publicación" />
+
+            <ImageView
+                android:id="@+id/nueva_P_imagen"
+                android:layout_width="256dp"
+                android:layout_height="256dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:baselineAlignBottom="false"
+                android:contentDescription="Imagen"
+                app:srcCompat="@drawable/ic_menu_camera"
+                tools:ignore="OnClick" />
 
 
-        <Button
-            android:id="@+id/nueva_P_btn_imagen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Seleccionar imagen"
+            <Button
+                android:id="@+id/nueva_P_btn_imagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
 
-            />
+                android:layout_marginTop="8dp"
+                android:text="Seleccionar imagen" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripción:"
-            android:textSize="24sp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Descripción:"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/nueva_P_descripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/nueva_P_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contacto:"
-            android:textSize="24sp" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Contacto:"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/nueva_P_Contacto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            <EditText
+                android:id="@+id/nueva_P_Contacto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:inputType="textPersonName" />
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapView"
@@ -88,11 +108,13 @@
                 android:background="#781313" />
 
             <Button
-            android:id="@+id/nueva_P_btn_Publicar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="bottom"
-            android:text="Publicar" />
+                android:id="@+id/nueva_P_btn_Publicar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:foregroundGravity="bottom"
+                android:text="Publicar" />
         </LinearLayout>
     </ScrollView>
 

@@ -118,6 +118,8 @@ public class LoguinFragment extends Fragment implements Response.ErrorListener, 
             }
         } );
 
+        getActivity().setTitle("Iniciar Sesión");
+
         return vista;
     }
 

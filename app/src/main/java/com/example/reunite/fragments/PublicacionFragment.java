@@ -168,6 +168,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
 
         //JsonObjectRequest jsonObjectRequest;
 
+        getActivity().setTitle("Publicación");
 
         return vista;
     }

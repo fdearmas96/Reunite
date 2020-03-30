@@ -55,10 +55,8 @@ public class MiListaPublicacionesFragment extends Fragment implements Response.E
         publicaciones = new ArrayList<>();
         //recyclerView.setAdapter(new AdapterItemListaPublicaciones(getContext(), publicaciones));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        getActivity().setTitle("Mis Publicaciones");
         obtenerPublicaciones();
-
-
         return vista;
     }
 

@@ -243,8 +243,6 @@ public class MainActivity extends AppCompatActivity
             mifragment = new ChatFragment();
             fragmentSeleccionado = true;
 
-        } else if (id == R.id.nav_send) {
-
         }
 
         if(fragmentSeleccionado){
