@@ -20,4 +20,14 @@
         android:text="Placeholder"
         />
 
+    <TextView
+        android:id="@+id/message_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_toStartOf="@+id/message_body"
+        android:layout_toLeftOf="@+id/message_body"
+        android:text="TextView" />
+
 </RelativeLayout>

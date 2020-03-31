@@ -15,4 +15,12 @@ public class Mensaje {
     public String getMensajeTexto() {
         return this.texto;
     }
+
+    public String getUsuarioReceive() {
+        return this.user_receive;
+    }
+
+    public String getUsuarioSend() {
+        return this.user_send;
+    }
 }

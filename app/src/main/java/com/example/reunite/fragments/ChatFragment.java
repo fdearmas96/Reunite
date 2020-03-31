@@ -71,13 +71,16 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                     @Override
                     public void onClick(View view) {
                         llamarWebService();
-                        msg_send.getText().clear();
                     }
                 });
 
         msg_send = vista.findViewById(R.id.mensaje_enviar);
         mensajes = new ArrayList<>();
-        obtener_mensajes();
+        try {
+            obtener_mensajes();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         getActivity().setTitle("Mensajes");
 
@@ -113,8 +116,9 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
             protected Map<String, String> getParams() throws AuthFailureError {
                 ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
                 String usersend = user1.getUser(getContext());
-                String userreceive = "Pepe";
+                String userreceive = "Fernando";
                 String messagebody = msg_send.getEditableText().toString();
+                msg_send.getText().clear();
                 Map<String,String> parametros = new HashMap<>();
                 Log.d("Debug", messagebody);
                 parametros.put("usersend", usersend);
@@ -139,19 +143,19 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
         transaction.commit();
     }
 
-    private void obtener_mensajes() {
+    private void obtener_mensajes() throws JSONException {
         request = Volley.newRequestQueue(getContext());
         mensajes = new ArrayList<>();
         cargarWebService(mensajes);
     }
 
-    private void cargarWebService(ArrayList<Mensaje> mensajes) {
+    private void cargarWebService(ArrayList<Mensaje> mensajes) throws JSONException {
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Consultando");
         progreso.show();
-        JsonObjectRequest jsonObjectRequest;
-        String url = Utilidades.WsObtenerMensajes;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
+        String url = Utilidades.WsObtenerMensajes + "usuario=" + user1.getUser(getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }
 
@@ -167,14 +171,15 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
         JSONArray json = response.optJSONArray("mensajes");
         JSONObject jsonObject;
         Log.d("Debug", json.toString());
+        Boolean hayMensaje = false;
         try {
             for (int i = 0; i < json.length(); i++) {
                 jsonObject = json.getJSONObject(i);
                 Log.d("Debug", String.valueOf(jsonObject));
 
                 String respuestanull = jsonObject.optString("mensaje");
-
-                if (!respuestanull.equalsIgnoreCase("No hay mensajes")) {
+                if (!respuestanull.equalsIgnoreCase("[\"No hay mensajes\"]")) {
+                    hayMensaje = true;
                     String mensaje_body = jsonObject.optString("Msg_texto");
                     String mensaje_userreceive = jsonObject.optString("Msg_userreceive");
                     String mensaje_usersend = jsonObject.optString("Msg_usersend");
@@ -184,8 +189,11 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                 }
             }
             progreso.hide();
-            AdapterMensajes adapterMensajes = new AdapterMensajes(getContext(), mensajes);
-            recyclerView.setAdapter(adapterMensajes);
+            if (hayMensaje) {
+                String user = new ConsultaUsuarioLogueado().getUser(getContext());
+                AdapterMensajes adapterMensajes = new AdapterMensajes(getContext(), mensajes, user);
+                recyclerView.setAdapter(adapterMensajes);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
