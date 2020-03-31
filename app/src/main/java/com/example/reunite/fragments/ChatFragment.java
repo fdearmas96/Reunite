@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -64,7 +65,6 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
         View vista = inflater.inflate(R.layout.fragment_chat, container, false);
         recyclerView = vista.findViewById(R.id.messages_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         btn_enviar = vista.findViewById(R.id.chat_btn_enviar);
         btn_enviar.setOnClickListener(
                 new View.OnClickListener() {
@@ -74,6 +74,8 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                     }
                 });
 
+        TextView titulo = vista.findViewById(R.id.mensaje_usuario_titulo);
+        titulo.setText("Fernando");
         msg_send = vista.findViewById(R.id.mensaje_enviar);
         mensajes = new ArrayList<>();
         try {

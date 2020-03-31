@@ -7,13 +7,24 @@
     android:clipToPadding="false"
     android:focusableInTouchMode="true">
 
+    <TextView
+        android:id="@+id/mensaje_usuario_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4CAF50"
+        android:text="TextView"
+        android:textColor="#034C06"
+        android:textSize="18sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/messages_view"
         android:layout_weight="2"
         android:divider="#fff"
         android:layout_height="0dp"
-        />
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,4 +53,5 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/ic_menu_send"/>
     </LinearLayout>
+
 </LinearLayout>

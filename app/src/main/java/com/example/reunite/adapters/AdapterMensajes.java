@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,11 +44,12 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Mensaje mensaje = listaMensajes.get(position);
-        holder.mensaje.setText(mensaje.getMensajeTexto());
-        if (mensaje.getUsuarioReceive() != user) {
-            holder.mensaje.setBackgroundColor(Color.BLUE);
+        if (mensaje.getUsuarioSend().equalsIgnoreCase(user)) {
+            holder.layout.setPadding(20,10,700,0);
+            holder.mensaje.setBackgroundColor(Color.rgb(0, 95, 0));
         }
-        holder.user.setText(mensaje.getUsuarioSend());
+        holder.mensaje.setText(mensaje.getMensajeTexto());
+        holder.user.setText("");
     }
 
     @Override
@@ -58,9 +60,11 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mensaje;
         public TextView user;
+        public RelativeLayout layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            layout = itemView.findViewById(R.id.mensaje_layout);
             mensaje = itemView.findViewById(R.id.message_body);
             user = itemView.findViewById(R.id.message_user);
         }
