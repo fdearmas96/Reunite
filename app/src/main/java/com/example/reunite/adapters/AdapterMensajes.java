@@ -44,7 +44,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Mensaje mensaje = listaMensajes.get(position);
-        if (mensaje.getUsuarioSend().equalsIgnoreCase(user)) {
+        if (!mensaje.getUsuarioSend().equalsIgnoreCase(user)) {
             holder.layout.setPadding(20,10,700,0);
             holder.mensaje.setBackgroundColor(Color.rgb(0, 95, 0));
         }

@@ -1,6 +1,7 @@
 package com.example.reunite.fragments;
 
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +51,6 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
     StringRequest stringrequest;
     EditText msg_send;
 
-
     public ChatFragment() {
 
     }
@@ -74,8 +75,8 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                     }
                 });
 
-        TextView titulo = vista.findViewById(R.id.mensaje_usuario_titulo);
-        titulo.setText("Fernando");
+//        TextView titulo = vista.findViewById(R.id.mensaje_usuario_titulo);
+//        titulo.setText("Federico");
         msg_send = vista.findViewById(R.id.mensaje_enviar);
         mensajes = new ArrayList<>();
         try {
@@ -84,7 +85,18 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
             e.printStackTrace();
         }
 
-        getActivity().setTitle("Mensajes");
+        ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
+        String user = user1.getUser(this.getContext());
+
+        String chatTitulo;
+        if (user.equalsIgnoreCase(("Cristian"))) {
+            chatTitulo = "Mensajes: Federico";
+        } else {
+            chatTitulo = "Mensajes: Cristian";
+        }
+        getActivity().setTitle(chatTitulo);
+
+
 
         return vista;
     }
@@ -118,7 +130,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
             protected Map<String, String> getParams() throws AuthFailureError {
                 ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
                 String usersend = user1.getUser(getContext());
-                String userreceive = "Fernando";
+                String userreceive = "Federico";
                 String messagebody = msg_send.getEditableText().toString();
                 msg_send.getText().clear();
                 Map<String,String> parametros = new HashMap<>();
