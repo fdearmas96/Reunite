@@ -91,6 +91,12 @@
                 android:text="TextView"
                 android:textSize="18sp" />
 
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapViewpub"
+                android:layout_width="500px"
+                android:layout_height="300px"
+                android:layout_gravity="center" />
+
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"

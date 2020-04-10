@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -84,6 +85,7 @@ public class NuevaPublicacionFragment extends Fragment {
     EditText nueva_P_Contacto;
     Button nueva_P_btn_Publicar;
     Button nueva_P_btn_imagen;
+    Button btnAgregarPublicacion;
     ProgressDialog progreso;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
@@ -151,6 +153,14 @@ public class NuevaPublicacionFragment extends Fragment {
         nueva_P_btn_Publicar = vista.findViewById(R.id.nueva_P_btn_Publicar);
         nueva_P_btn_imagen = vista.findViewById(R.id.nueva_P_btn_imagen);
 
+        btnAgregarPublicacion = vista.findViewById(R.id.btnAgregarPublicacion);
+        btnAgregarPublicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                agregarPublicacion();
+            }
+        } );
+
 
         request = Volley.newRequestQueue(getContext());
         nueva_P_btn_imagen.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +184,16 @@ public class NuevaPublicacionFragment extends Fragment {
         getActivity().setTitle("Nueva Publicación");
 
         return vista;
+    }
+
+    private void agregarPublicacion() {
+        Fragment mifragmentNuvoUsuario = null;
+        mifragmentNuvoUsuario = new MapsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, mifragmentNuvoUsuario);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void llamarWebService() {
@@ -221,12 +241,23 @@ public class NuevaPublicacionFragment extends Fragment {
                 String descripcion = nueva_P_descripcion.getText().toString();
                 String contacto = nueva_P_Contacto.getText().toString();
                 String imagen = convertirImgString(bitmap);
+
+                //Obtengo la longitud y latitud que guarde en el otro fragment
+                SharedPreferences preferences = getContext().getSharedPreferences("Ubicacion", Context.MODE_PRIVATE);
+                String latitud = preferences.getString("latitud","");
+                String longitud = preferences.getString("longitud","");
+                Log.e("latitud", latitud );
+                Log.e("longitud", longitud );
+
+
                 Map<String,String> parametros = new HashMap<>();
                 parametros.put("user",user);
                 parametros.put("titulo",titulo);
                 parametros.put("descripcion",descripcion);
                 parametros.put("contacto",contacto);
                 parametros.put("imagen",imagen);
+                parametros.put("latitud",latitud);
+                parametros.put("longitud",longitud);
 
                 return parametros;
             }

@@ -84,11 +84,12 @@
                 android:ems="10"
                 android:inputType="textPersonName" />
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btnAgregarPublicacion"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#781313" />
+                android:layout_gravity="center"
+                android:text="Agregar ubicación" />
 
             <Button
                 android:id="@+id/nueva_P_btn_Publicar"

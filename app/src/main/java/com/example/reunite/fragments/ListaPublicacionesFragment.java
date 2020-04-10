@@ -125,6 +125,9 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
                 publicacion.setRuta_imagen(jsonObject.optString("Pub_img"));
                 publicacion.setPub_Desc(jsonObject.optString("Pub_Desc"));
                 publicacion.setPub_contacto(jsonObject.optString("Pub_Contacto"));
+                //para la ubicación:
+                publicacion.setLatitud(jsonObject.optString("latitud"));
+                publicacion.setLongitud(jsonObject.optString("longitud"));
 
 
                 publicaciones.add(publicacion);

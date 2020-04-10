@@ -33,6 +33,14 @@ import com.example.reunite.classes.ConsultaUsuarioLogueado;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.R;
 import com.example.reunite.classes.Utilidades;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,6 +78,9 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     int IdentidadDePub;
+
+    //Para el mapa
+    MapView mapViewpub;
 
     ///**************Para los comentarios:
     ArrayList<Comentario> listaComentarios ;
@@ -122,6 +133,9 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         btn_comentar = vista.findViewById(R.id.btn_comentar);
         comentario_body_id = vista.findViewById(R.id.comentario_body_id);
 
+
+
+
         request = Volley.newRequestQueue(getContext());
         Bundle objetoPublicaicon = getArguments();
         Publicacion publicacion = null;
@@ -130,6 +144,10 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
             Log.i("11111Bien", "Le llega objeto");
             publicacion = (Publicacion) objetoPublicaicon.getSerializable("objeto"); //ese objeto está en el mainActivity
             int pub_id = publicacion.getPub_id();
+
+
+
+
             this.IdentidadDePub = pub_id;
             publicacionTit.setText( publicacion.getPub_Titulo());
             publicacionDescri.setText(publicacion.getPub_Desc());
@@ -141,6 +159,49 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
                 ImagenPublicacion.setImageBitmap(publicacion.getPub_img());
             }else{Log.i("Mal", "No Le llega imagen");
 
+            }
+
+            //para el mapa
+            String latitudStr = publicacion.getLatitud();
+            String longitudStr = publicacion.getLongitud();
+            Log.e("latitud", "antes");
+            Log.e("latitud", latitudStr);
+            Log.e("longitud", longitudStr);
+            if (latitudStr.equals("")){
+                Log.e("latitud", "entro");
+            }else{
+
+                mapViewpub = (MapView) vista.findViewById(R.id.mapViewpub);
+                mapViewpub.onCreate(savedInstanceState);
+                mapViewpub.onResume(); // needed to get the map to display immediately
+
+                final Double latitud=Double.parseDouble(latitudStr);
+                final Double longitud=Double.parseDouble(longitudStr);
+                try {
+                    MapsInitializer.initialize(getActivity().getApplicationContext());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mapViewpub.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap mMap) {
+                        final GoogleMap map = mMap;
+
+                        // For showing a move to my location button
+                        //googleMap.setMyLocationEnabled(true);
+
+                        // For dropping a marker at a point on the Map
+                        Log.e("latitud", latitud.toString());
+                        Log.e("longitud", longitud.toString());
+                        LatLng ultimavez = new LatLng(latitud,longitud);
+
+
+                        // For zooming automatically to the location of the marker
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(ultimavez).zoom(11).build();
+                        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        map.addMarker(new MarkerOptions().position(ultimavez));
+                    }
+                });
             }
 
 

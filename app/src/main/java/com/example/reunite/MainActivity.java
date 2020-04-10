@@ -20,10 +20,14 @@ import com.example.reunite.fragments.LoguinFragment;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.classes.Utilidades;
 import com.example.reunite.fragments.ListaPublicacionesFragment;
+
 import com.example.reunite.fragments.MiListaPublicacionesFragment;
 import com.example.reunite.fragments.NuevaPublicacionFragment;
 import com.example.reunite.fragments.PublicacionFragment;
 import com.example.reunite.fragments.RegistroUsuarioFragment;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.util.Log;
@@ -58,7 +62,7 @@ import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ImplementsFragments, Response.ErrorListener, Response.Listener<JSONObject>, IComunicaFragments {
+        implements NavigationView.OnNavigationItemSelectedListener, ImplementsFragments, Response.ErrorListener, Response.Listener<JSONObject>, IComunicaFragments, OnMapReadyCallback {
 
     ProgressDialog progreso;
     Fragment miLoguin = null;
@@ -170,6 +174,7 @@ public class MainActivity extends AppCompatActivity
         Fragment miFragmentinicio = null;
         miFragmentinicio = new ListaPublicacionesFragment();//InicioFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main,miFragmentinicio).commit();
+
 
 
     }
@@ -342,5 +347,10 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().
                 beginTransaction().
                 replace(R.id.content_main,mifragment).addToBackStack(null).commit();//.addToBackStack(null) el .add no estaba
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 }

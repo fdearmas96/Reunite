@@ -21,6 +21,8 @@ public class Publicacion  implements Serializable {
     private String dato;
     private Bitmap Pub_img;
     private String ruta_imagen;
+    private String latitud;
+    private String longitud;
 
     public Publicacion() {
         this.pub_id = 99;
@@ -75,6 +77,22 @@ public class Publicacion  implements Serializable {
             e.printStackTrace();
         }
 
+    }
+
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 
     public Bitmap getPub_img() {
