@@ -137,15 +137,9 @@ public class NuevaPublicacionFragment extends Fragment {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_nueva_publicacion, container, false);
 
-        /*
-    EditText nueva_P_titulo;
-    ImageView nueva_P_imagen;
-    EditText nueva_P_descripcion;
-    EditText nueva_P_Contacto;
-    Button nueva_P_btn_Publicar;
-    Button nueva_P_btn_imagen;
 
-         */
+        //  preferences = getContext().getSharedPreferences("Ubicacion", Context.MODE_PRIVATE);
+        // String user = preferences.getString("latitud","");
         nueva_P_titulo = vista.findViewById(R.id.nueva_P_titulo);
         nueva_P_imagen = vista.findViewById(R.id.nueva_P_imagen);
         nueva_P_descripcion = vista.findViewById(R.id.nueva_P_descripcion);
@@ -157,7 +151,7 @@ public class NuevaPublicacionFragment extends Fragment {
         btnAgregarPublicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                agregarPublicacion();
+                agregarUbiPublicacion();
             }
         } );
 
@@ -186,7 +180,8 @@ public class NuevaPublicacionFragment extends Fragment {
         return vista;
     }
 
-    private void agregarPublicacion() {
+    private void agregarUbiPublicacion() {
+
         Fragment mifragmentNuvoUsuario = null;
         mifragmentNuvoUsuario = new MapsFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

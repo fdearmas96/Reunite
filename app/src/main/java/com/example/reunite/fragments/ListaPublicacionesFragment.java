@@ -2,6 +2,8 @@ package com.example.reunite.fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,7 +63,11 @@ public class ListaPublicacionesFragment extends Fragment implements Response.Err
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         getActivity().setTitle("Publicaciones");
         obtenerPublicaciones();
-
+        SharedPreferences preferences = getContext().getSharedPreferences("Ubicacion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("latitud","");
+        editor.putString("longitud", "");
+        editor.commit();
 
         return vista;
     }
