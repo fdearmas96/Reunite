@@ -51,9 +51,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
     StringRequest stringrequest;
     EditText msg_send;
 
-    public ChatFragment() {
-
-    }
+    public ChatFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +64,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
         View vista = inflater.inflate(R.layout.fragment_chat, container, false);
         recyclerView = vista.findViewById(R.id.messages_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         btn_enviar = vista.findViewById(R.id.chat_btn_enviar);
         btn_enviar.setOnClickListener(
                 new View.OnClickListener() {
@@ -75,8 +74,6 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                     }
                 });
 
-//        TextView titulo = vista.findViewById(R.id.mensaje_usuario_titulo);
-//        titulo.setText("Federico");
         msg_send = vista.findViewById(R.id.mensaje_enviar);
         mensajes = new ArrayList<>();
         try {
@@ -95,8 +92,6 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
             chatTitulo = "Mensajes: Cristian";
         }
         getActivity().setTitle(chatTitulo);
-
-
 
         return vista;
     }
@@ -191,7 +186,7 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
                 jsonObject = json.getJSONObject(i);
                 Log.d("Debug", String.valueOf(jsonObject));
 
-                String respuestanull = jsonObject.optString("mensaje");
+                String respuestanull = jsonObject.optString("item_mensaje");
                 if (!respuestanull.equalsIgnoreCase("[\"No hay mensajes\"]")) {
                     hayMensaje = true;
                     String mensaje_body = jsonObject.optString("Msg_texto");

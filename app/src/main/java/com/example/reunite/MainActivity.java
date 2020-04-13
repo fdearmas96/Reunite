@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.reunite.classes.ConsultaUsuarioLogueado;
 import com.example.reunite.fragments.ChatFragment;
+import com.example.reunite.fragments.ChatHubFragment;
 import com.example.reunite.fragments.LoguinFragment;
 import com.example.reunite.classes.Publicacion;
 import com.example.reunite.classes.Utilidades;
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity
             fragmentSeleccionado = true;
 
         } else if (id == R.id.nav_mensajes) {
-            mifragment = new ChatFragment();
+            mifragment = new ChatHubFragment();
             fragmentSeleccionado = true;
 
         }
