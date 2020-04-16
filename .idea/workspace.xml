@@ -53,9 +53,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="resourceFile" />
         <option value="valueResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -67,7 +67,8 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="249dca06" />
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-01T01:42:38.301Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -76,15 +77,22 @@
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="com.example.reunite.fragments" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Fernando\AndroidStudioProjects\Reunite\app\src\main\res\drawable-v24" />
+      <recent name="C:\Users\Fernando\AndroidStudioProjects\Reunite\app\src\main\res\mipmap-anydpi-v26" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.reunite" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fdear\AndroidStudioProjects\Reunite\app\src\main\res\layout" />
+      <recent name="C:\Users\fdear\AndroidStudioProjects\Reunite\app\src\main\res\drawable-v24" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.reunite.fragments" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Fernando\AndroidStudioProjects\Reunite\app\src\main\res\drawable-v24" />
-      <recent name="C:\Users\Fernando\AndroidStudioProjects\Reunite\app\src\main\res\mipmap-anydpi-v26" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.reunite.adapters" />
     </key>
   </component>
   <component name="RunDashboard">

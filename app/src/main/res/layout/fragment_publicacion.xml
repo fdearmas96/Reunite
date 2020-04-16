@@ -108,7 +108,7 @@
             <LinearLayout
                 android:id="@+id/layoutComentarios"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="500px"
 
                 android:layout_marginTop="8dp"
 
@@ -119,9 +119,9 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerComentarios"
-                    android:background="@color/cardview_light_background"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:background="@color/cardview_light_background">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -141,6 +141,14 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/btnMapaComentario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:drawableBottom="@android:drawable/ic_dialog_map"
+                    android:gravity="center_vertical" />
 
                 <Button
                     android:id="@+id/btn_comentar"

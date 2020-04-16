@@ -1,10 +1,13 @@
 package com.example.reunite.classes;
 
-public class Comentario {
+import java.io.Serializable;
+
+public class Comentario implements Serializable {
     private String comentarioUsuario;
     private String comentario;
     private int comentarioId;
     private int comentarioPublicación;
+    private String latitud, longitud;
 
     /*public Comentario(String comentarioUsuario, String comentario, int comentarioId, int comentarioPublicación) {
         this.comentarioUsuario = comentarioUsuario;
@@ -44,5 +47,21 @@ public class Comentario {
 
     public void setComentarioPublicación(int comentarioPublicación) {
         this.comentarioPublicación = comentarioPublicación;
+    }
+
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 }

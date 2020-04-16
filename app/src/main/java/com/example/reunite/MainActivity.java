@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.reunite.classes.Comentario;
 import com.example.reunite.classes.ConsultaUsuarioLogueado;
 import com.example.reunite.fragments.ChatFragment;
 import com.example.reunite.fragments.ChatHubFragment;
@@ -22,6 +23,7 @@ import com.example.reunite.classes.Publicacion;
 import com.example.reunite.classes.Utilidades;
 import com.example.reunite.fragments.ListaPublicacionesFragment;
 
+import com.example.reunite.fragments.MapsFragmentView;
 import com.example.reunite.fragments.MiListaPublicacionesFragment;
 import com.example.reunite.fragments.NuevaPublicacionFragment;
 import com.example.reunite.fragments.PublicacionFragment;
@@ -344,6 +346,18 @@ public class MainActivity extends AppCompatActivity
         llamar_fragment (mifragment);
 
     }
+    public void enviarComentario(Comentario comentario) {
+        mifragment = new MapsFragmentView();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto", comentario);
+        mifragment.setArguments(bundleEnvio);
+
+        //Cargo el fragment
+        llamar_fragment (mifragment);
+
+    }
+
+
     private void llamar_fragment(Fragment mifragment) {
         getSupportFragmentManager().
                 beginTransaction().

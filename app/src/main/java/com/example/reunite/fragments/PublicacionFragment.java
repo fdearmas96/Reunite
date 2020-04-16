@@ -1,12 +1,19 @@
 package com.example.reunite.fragments;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +34,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.reunite.IComunicaFragments;
 import com.example.reunite.adapters.AdapterComentarios;
+import com.example.reunite.classes.BorrarUbicacion;
 import com.example.reunite.classes.Comentario;
 import com.example.reunite.classes.ConsultaUsuarioLogueado;
 import com.example.reunite.classes.Publicacion;
@@ -47,6 +56,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 /**
@@ -85,12 +98,15 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
     ///**************Para los comentarios:
     ArrayList<Comentario> listaComentarios ;
     RecyclerView recyclerComentarios= null;
-    Button btn_comentar;
+    Button btn_comentar, btnMapaComentario;
     EditText comentario_body_id;
     Comentario comentario = null;
 
     String url = null;
     String urlComparar = null;
+    BorrarUbicacion borrarUbicacion = new BorrarUbicacion();
+    String latitud1 ;
+    String longitud1;
 
     /**
      * Use this factory method to create a new instance of
@@ -132,16 +148,15 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         publicacionContacto = (TextView) vista.findViewById(R.id.PublicacionContacto);
         btn_comentar = vista.findViewById(R.id.btn_comentar);
         comentario_body_id = vista.findViewById(R.id.comentario_body_id);
-
-
-
+        btnMapaComentario  = vista.findViewById(R.id.btnMapaComentario);
+        //btnMapaComentario.setVisibility(View.GONE); //Lo dejo invisible por ahora se muestra una alerta que te pregunta que si queres agregar una ubicación
 
         request = Volley.newRequestQueue(getContext());
         Bundle objetoPublicaicon = getArguments();
         Publicacion publicacion = null;
 
         if (objetoPublicaicon != null) {
-            Log.i("11111Bien", "Le llega objeto");
+            //Log.i("11111Bien", "Le llega objeto");
             publicacion = (Publicacion) objetoPublicaicon.getSerializable("objeto"); //ese objeto está en el mainActivity
             int pub_id = publicacion.getPub_id();
 
@@ -157,18 +172,18 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
 
             if (publicacion.getPub_img()!=null){
                 ImagenPublicacion.setImageBitmap(publicacion.getPub_img());
-            }else{Log.i("Mal", "No Le llega imagen");
+            }else{//Log.i("Mal", "No Le llega imagen");
 
             }
 
             //para el mapa
             String latitudStr = publicacion.getLatitud();
             String longitudStr = publicacion.getLongitud();
-            Log.e("latitud", "antes");
-            Log.e("latitud", latitudStr);
-            Log.e("longitud", longitudStr);
+            //Log.e("latitud", "antes");
+            //Log.e("latitud", latitudStr);
+            //Log.e("longitud", longitudStr);
             if (latitudStr.equals("")){
-                Log.e("latitud", "entro");
+                // Log.e("latitud", "entro");
                 mapViewpub = (MapView) vista.findViewById(R.id.mapViewpub);
                 mapViewpub.setVisibility(View.GONE);
             }else{
@@ -193,8 +208,8 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
                         //googleMap.setMyLocationEnabled(true);
 
                         // For dropping a marker at a point on the Map
-                        Log.e("latitud", latitud.toString());
-                        Log.e("longitud", longitud.toString());
+                        //Log.e("latitud", latitud.toString());
+//                        Log.e("longitud", longitud.toString());
                         LatLng ultimavez = new LatLng(latitud,longitud);
 
 
@@ -228,6 +243,12 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
                 agregarComentario();
             }
         });
+        btnMapaComentario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                agregarUbiPublicacion();
+            }
+        });
 
         //JsonObjectRequest jsonObjectRequest;
 
@@ -236,19 +257,46 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         return vista;
     }
 
+    private void agregarUbiPublicacion() {
+        borrarUbicacion.borrarUbicacion(getContext());
+        Fragment mifragmentNuvoUsuario = null;
+        mifragmentNuvoUsuario = new MapsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, mifragmentNuvoUsuario);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     private  void agregarComentario() {
+
+        SharedPreferences preferences = getContext().getSharedPreferences("Ubicacion", Context.MODE_PRIVATE);
+        latitud1 = preferences.getString("latitud","");
+        longitud1 = preferences.getString("longitud","");
+        Log.e("*****latitud", latitud1 );
+        Log.e("****longitud", longitud1 );
+        Log.e("****Antes de llamar", "webserv");
+        llamarwsCargarComentario();
+        comentario_body_id.setText("");
+        borrarUbicacion.borrarUbicacion(getContext());
+
+
+    }
+
+    private void llamarwsCargarComentario() {
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Agregando comentarios");
         progreso.show();
         String usuarioLogueado = new ConsultaUsuarioLogueado().getUser(getContext());
         //http://localhost:8080/Reunite/comentarios.php?accion=INS&usuario=Fernando&publicacion=1&comentario=magui2
         this.url = Utilidades.WsComentarios+"accion=INS&usuario="+usuarioLogueado+"&publicacion="+
-                this.IdentidadDePub+"&comentario=" + comentario_body_id.getText();
+                this.IdentidadDePub+"&comentario=" + comentario_body_id.getText()+"&latitud=" + latitud1+"&longitud=" + longitud1;
         this.urlComparar = this.url;
         Log.i("*****URL_Agregar", url);
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,this.url,null,this,this);
         request.add(jsonObjectRequest);
+        borrarUbicacion.borrarUbicacion(getContext()); //para que se limpie
     }
+
 
 
     private void cargarComentarios(int pub_id) {
@@ -257,7 +305,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
         progreso.show();
         this.url = Utilidades.WsComentarios+"accion=DSP&publicacion="+pub_id;
         this.urlComparar ="";
-        Log.i("*********URL********", url);
+        //Log.i("*********URL********", url);
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,this.url,null,this,this);
         request.add(jsonObjectRequest);
     }
@@ -289,7 +337,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
 
         progreso.hide();
         Toast.makeText(getContext(), "Ocurrió un error", Toast.LENGTH_SHORT).show();
-        Log.i("Error", error.toString()+url);
+        //Log.i("Error", error.toString()+url);
     }
 
     @Override
@@ -313,14 +361,44 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
                         comentario.setComentarioUsuario(jsonObject.optString("Usuario_ID"));
                         comentario.setComentarioPublicación(Integer.parseInt(jsonObject.optString("Pub_ID")));
                         comentario.setComentario(jsonObject.optString("comentario_body"));
+                        comentario.setLatitud(jsonObject.optString("latitud"));
+                        comentario.setLongitud(jsonObject.optString("longitud"));
+                        Log.e("PubFragment ", jsonObject.optString("latitud")+jsonObject.optString("comentario_body"));
                         listaComentarios.add(comentario);
-                        Log.i("Error", "agrego comentario " + comentario.getComentario());
-                         adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
-                        recyclerComentarios.setAdapter(adapterComentarios);
+                        //Log.i("Error", "agrego comentario " + comentario.getComentario());
+                       // adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
+                       // recyclerComentarios.setAdapter(adapterComentarios);
                     }
 
 
                 }
+                adapterComentarios = new AdapterComentarios(getContext(),listaComentarios);
+                //Para seleccionar el comentario:
+                adapterComentarios.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(getContext(),
+                          //      "Selecciona:" + listaComentarios.get
+                            //            (recyclerComentarios.getChildAdapterPosition(v)).getComentario(),Toast.LENGTH_SHORT).show();
+                        if (listaComentarios.get(recyclerComentarios.getChildAdapterPosition(v)).getLatitud().equals(""))
+                        {
+
+                        }else{
+                            String latitud =listaComentarios.get(recyclerComentarios.getChildAdapterPosition(v)).getLatitud();
+                            String longitud =listaComentarios.get(recyclerComentarios.getChildAdapterPosition(v)).getLatitud();
+                            IComunicaFragments interfaceComunicaFragment = null;// = null;
+                            Activity activity = (Activity) getContext();
+                            interfaceComunicaFragment = (IComunicaFragments) activity;
+
+                            interfaceComunicaFragment.enviarComentario(listaComentarios.get(recyclerComentarios.getChildAdapterPosition(v)));//getChildAdapterPosition(getView())
+
+                        }
+
+                    }
+
+                });
+
+                recyclerComentarios.setAdapter(adapterComentarios);
 
             } catch (JSONException e) {
                 e.printStackTrace();
