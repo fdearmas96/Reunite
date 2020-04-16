@@ -61,6 +61,7 @@ public class MapsFragment extends Fragment {
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(11).build();
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                btnAceptar.setEnabled(false);
                 map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -68,6 +69,7 @@ public class MapsFragment extends Fragment {
                         marcador = map.addMarker(new MarkerOptions().position(latLng));
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
                         Log.e("*********URL********", marcador.getPosition().toString());
+                        btnAceptar.setEnabled(true);
                     }
                 });
                 btnAceptar.setOnClickListener(new View.OnClickListener() {
