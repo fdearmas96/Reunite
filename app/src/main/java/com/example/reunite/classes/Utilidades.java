@@ -15,7 +15,10 @@ public class Utilidades {
     public static String WsComentarios              = servidor + "comentarios.php?";
     public static String WsObtenerMensajes          = servidor + "obtenerMensajes.php?";
     public static String WsNuevoMensaje             = servidor + "nuevoMensaje.php?";
-    public static String WsObtenerChats             = servidor + "obtenerChats.php?";
+
+
+
+
 
     public static String Tabla_Pub = "publicacion";
     public static String Publicacion_Id = "Pub_ID";
@@ -27,6 +30,5 @@ public class Utilidades {
 
     public static float AnchoImagen = 600;
     public static float AltoImagen = 800;
-
 
 }
