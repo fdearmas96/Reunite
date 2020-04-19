@@ -44,7 +44,8 @@ public class ChatHubFragment extends Fragment implements Response.ErrorListener,
     RequestQueue request;
     ArrayList<String> chats;
     ProgressDialog progreso;
-    String user = new ConsultaUsuarioLogueado().getUser(this.getContext());
+
+    String user = new ConsultaUsuarioLogueado().getUser(getContext());
 
     public ChatHubFragment() {}
 

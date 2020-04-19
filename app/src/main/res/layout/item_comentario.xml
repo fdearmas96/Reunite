@@ -28,8 +28,8 @@
 
         <TextView
             android:id="@+id/comentario_body_id"
-            android:layout_width="232dp"
-            android:layout_height="51dp"
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
