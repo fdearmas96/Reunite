@@ -91,7 +91,8 @@ public class MiListaPublicacionesFragment extends Fragment implements Response.E
     @Override
     public void onErrorResponse(VolleyError error) {
         progreso.hide();
-        Toast.makeText(getContext(), "No se pudo consultar" + error.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "No se pudo consultar" + error.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "No se encontraron publicaciones.", Toast.LENGTH_SHORT).show();
         Log.i("Error", error.toString());
 
     }

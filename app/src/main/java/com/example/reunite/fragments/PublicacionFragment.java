@@ -182,7 +182,7 @@ public class PublicacionFragment extends Fragment implements Response.Listener<J
             //Log.e("latitud", "antes");
             //Log.e("latitud", latitudStr);
             //Log.e("longitud", longitudStr);
-            if (latitudStr.equals("")){
+            if (latitudStr == null || latitudStr.equals("")){
                 // Log.e("latitud", "entro");
                 mapViewpub = (MapView) vista.findViewById(R.id.mapViewpub);
                 mapViewpub.setVisibility(View.GONE);

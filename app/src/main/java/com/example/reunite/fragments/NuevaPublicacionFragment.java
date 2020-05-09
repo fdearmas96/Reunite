@@ -19,6 +19,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -55,6 +56,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.PermissionChecker.checkSelfPermission;
@@ -361,6 +363,7 @@ public class NuevaPublicacionFragment extends Fragment {
 
                                 }
                             });
+                    Log.i("Ruta de almacenamiento", "Path :" + path);
                     bitmap = BitmapFactory.decodeFile(path);
                     //por algun motivo viene la gira -90 grados así que la giro
                     /*
@@ -372,13 +375,14 @@ public class NuevaPublicacionFragment extends Fragment {
 
                     bitmap = Bitmap.createScaledBitmap(bitmap,600,800,true);///////////////////////////
                     */
+                    /*
                     Matrix matrix = new Matrix();
                     int ancho = bitmap.getWidth();
                     int alto  = bitmap.getHeight();
                     if (ancho > alto){
                         matrix.preRotate(90);
                     }
-
+                    */
                     nueva_P_imagen.setImageBitmap(bitmap);
                     //la vuelvo a girar ya que cuando bajo el tamaño también la giro
                     //matrix.preRotate(-90);
@@ -403,9 +407,11 @@ public class NuevaPublicacionFragment extends Fragment {
 
             Matrix matrix = new Matrix();
             matrix.postScale(1,1);
+            /*
             if (ancho > alto){
                 matrix.preRotate(90);
             }
+             */
             //matrix.preRotate(90);
             //bitmap = Bitmap.createBitmap(bitmap, 0,0, ancho,alto, matrix, true); //La giro
             //matrix.setRotate(-90);
@@ -429,17 +435,18 @@ public class NuevaPublicacionFragment extends Fragment {
             return true;
         }
         //& (checkSelfPermission(getContext(),WRITE_EXTERNAL_STORAGE)){
-        if ((checkSelfPermission(getContext(), CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                (checkSelfPermission(getContext(), WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED))
+        if ((checkSelfPermission(getContext(), CAMERA) == /*PermissionChecker.PERMISSION_GRANTED*/ PackageManager.PERMISSION_GRANTED) &&
+                (checkSelfPermission(getContext(), WRITE_EXTERNAL_STORAGE) == /*PermissionChecker.PERMISSION_GRANTED*/ PackageManager.PERMISSION_GRANTED) &&
+                (checkSelfPermission(getContext(), READ_EXTERNAL_STORAGE) == /*PermissionChecker.PERMISSION_GRANTED*/ PackageManager.PERMISSION_GRANTED))
         {
             return true;
         }
 
-        if ( (shouldShowRequestPermissionRationale(CAMERA)) || (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) ){
+        if ( (shouldShowRequestPermissionRationale(CAMERA)) || (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE) || (shouldShowRequestPermissionRationale((READ_EXTERNAL_STORAGE)))) ){
             cargarDialogoRecomendacion();
 
         }else{
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA},100);
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA, READ_EXTERNAL_STORAGE},100);
         }
 
         return false;

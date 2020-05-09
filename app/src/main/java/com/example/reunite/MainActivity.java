@@ -61,6 +61,7 @@ import org.json.JSONObject;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity
@@ -288,7 +289,9 @@ public class MainActivity extends AppCompatActivity
         if (
                 (ContextCompat.checkSelfPermission(this, CAMERA) == PackageManager.PERMISSION_GRANTED) &&
                 (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                (ContextCompat.checkSelfPermission(this, INTERNET) == PackageManager.PERMISSION_GRANTED)
+                (ContextCompat.checkSelfPermission(this, INTERNET) == PackageManager.PERMISSION_GRANTED) &&
+                (ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+
         )
         {
             //Toast.makeText(this, "ya tiene permisos", Toast.LENGTH_SHORT).show();
@@ -298,12 +301,13 @@ public class MainActivity extends AppCompatActivity
         if (
                 (shouldShowRequestPermissionRationale(CAMERA)) ||
                 (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))||
-                (shouldShowRequestPermissionRationale(INTERNET))
+                (shouldShowRequestPermissionRationale(INTERNET)) ||
+                (shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE))
         ){
             cargarDialogoRecomendacion();
 
         }else{
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA},100);
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA, INTERNET, READ_EXTERNAL_STORAGE},100);
         }
 
         return false;
@@ -316,7 +320,7 @@ public class MainActivity extends AppCompatActivity
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA,INTERNET},100);
+                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA,INTERNET, READ_EXTERNAL_STORAGE},100);
             }
         });
         dialogo.show();

@@ -130,7 +130,13 @@ public class ChatFragment extends Fragment implements Response.ErrorListener, Re
             protected Map<String, String> getParams() throws AuthFailureError {
                 ConsultaUsuarioLogueado user1 = new ConsultaUsuarioLogueado();
                 String usersend = user1.getUser(getContext());
-                String userreceive = "Federico";
+                String userreceive;
+                if (!usersend.equals("Federico")){
+                    userreceive = "Federico";
+                }else{
+                    userreceive = "Cristian";
+                }
+
                 String messagebody = msg_send.getEditableText().toString();
                 msg_send.getText().clear();
                 Map<String,String> parametros = new HashMap<>();
